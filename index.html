@@ -270,144 +270,276 @@
 
             </section>
 
-            <!-- INGRESOS -->
-
-            <section
-                id="view-ingresos"
-                class="app-view"
-            >
-
-                <div class="screen-heading">
-
-                    <div>
-
-                        <p class="card-overline">
-                            Dinero recibido
-                        </p>
-
-                        <h2>
-                            Ingresos del mes
-                        </h2>
-
-                    </div>
-
-                    <button
-                        class="round-add-button"
-                        type="button"
-                        aria-label="Agregar ingreso"
-                    >
-                        +
-                    </button>
-
-                </div>
-
-                <article class="total-card income-total-card">
-
-                    <p>
-                        Total de ingresos
-                    </p>
-
-                    <strong id="income-total">
-                        $0.00
-                    </strong>
-
-                </article>
-
-                <article class="empty-state">
-
-                    <div class="empty-state-icon large">
-                        💵
-                    </div>
-
-                    <h3>
-                        No hay ingresos registrados
-                    </h3>
-
-                    <p>
-                        Agrega tu salario, el de tu esposa
-                        u otras entradas de dinero.
-                    </p>
-
-                    <button
-                        class="primary-button"
-                        type="button"
-                    >
-                        Agregar ingreso
-                    </button>
-
-                </article>
-
-            </section>
-
+            
             <!-- GASTOS -->
 
-            <section
-                id="view-gastos"
-                class="app-view"
-            >
+<section
+    id="view-gastos"
+    class="app-view"
+>
+    <div class="view-header">
 
-                <div class="screen-heading">
+        <div>
 
-                    <div>
+            <p class="view-eyebrow">
+                Finanzas Familiar
+            </p>
 
-                        <p class="card-overline">
-                            Salidas de dinero
-                        </p>
+            <h2>
+                Gastos
+            </h2>
 
-                        <h2>
-                            Gastos del mes
-                        </h2>
+            <p class="view-description">
+                Registra y administra las salidas de dinero del hogar.
+            </p>
 
-                    </div>
+        </div>
+
+        <button
+            id="open-expense-form"
+            class="primary-button"
+            type="button"
+        >
+            + Agregar gasto
+        </button>
+
+    </div>
+
+    <article class="summary-card expense-summary-card">
+
+        <p class="summary-label">
+            Total de gastos
+        </p>
+
+        <strong
+            id="expense-total"
+            class="summary-amount"
+        >
+            $0.00
+        </strong>
+
+        <p class="summary-description">
+            Suma de todos los gastos registrados.
+        </p>
+
+    </article>
+
+    <div
+        id="expense-empty-state"
+        class="empty-state"
+    >
+        <div class="empty-state-icon">
+            🧾
+        </div>
+
+        <h3>
+            Aún no hay gastos
+        </h3>
+
+        <p>
+            Agrega tu primer gasto fijo, variable o compra.
+        </p>
+
+    </div>
+
+    <div
+        id="expense-list"
+        class="records-list"
+    ></div>
+
+    <div
+        id="expense-modal"
+        class="modal-overlay"
+        hidden
+    >
+        <div
+            class="modal-card"
+            role="dialog"
+            aria-modal="true"
+            aria-labelledby="expense-form-title"
+        >
+            <div class="modal-header">
+
+                <div>
+
+                    <p class="view-eyebrow">
+                        Nuevo registro
+                    </p>
+
+                    <h3 id="expense-form-title">
+                        Agregar gasto
+                    </h3>
+
+                </div>
+
+                <button
+                    id="close-expense-form"
+                    class="icon-button"
+                    type="button"
+                    aria-label="Cerrar formulario"
+                >
+                    ×
+                </button>
+
+            </div>
+
+            <form id="expense-form">
+
+                <div class="form-group">
+
+                    <label for="expense-name">
+                        Nombre del gasto
+                    </label>
+
+                    <input
+                        id="expense-name"
+                        name="name"
+                        type="text"
+                        placeholder="Ejemplo: Renta"
+                        autocomplete="off"
+                        required
+                    >
+
+                </div>
+
+                <div class="form-group">
+
+                    <label for="expense-amount">
+                        Cantidad
+                    </label>
+
+                    <input
+                        id="expense-amount"
+                        name="amount"
+                        type="number"
+                        min="0.01"
+                        step="0.01"
+                        inputmode="decimal"
+                        placeholder="0.00"
+                        required
+                    >
+
+                </div>
+
+                <div class="form-group">
+
+                    <label for="expense-date">
+                        Fecha
+                    </label>
+
+                    <input
+                        id="expense-date"
+                        name="date"
+                        type="date"
+                        required
+                    >
+
+                </div>
+
+                <div class="form-group">
+
+                    <label for="expense-category">
+                        Categoría
+                    </label>
+
+                    <select
+                        id="expense-category"
+                        name="category"
+                    >
+                        <option value="Vivienda">
+                            Vivienda
+                        </option>
+
+                        <option value="Alimentación">
+                            Alimentación
+                        </option>
+
+                        <option value="Transporte">
+                            Transporte
+                        </option>
+
+                        <option value="Servicios">
+                            Servicios
+                        </option>
+
+                        <option value="Salud">
+                            Salud
+                        </option>
+
+                        <option value="Educación">
+                            Educación
+                        </option>
+
+                        <option value="Entretenimiento">
+                            Entretenimiento
+                        </option>
+
+                        <option value="Compras">
+                            Compras
+                        </option>
+
+                        <option value="Otros">
+                            Otros
+                        </option>
+
+                    </select>
+
+                </div>
+
+                <div class="form-group">
+
+                    <label for="expense-type">
+                        Tipo de gasto
+                    </label>
+
+                    <select
+                        id="expense-type"
+                        name="type"
+                    >
+                        <option value="Variable">
+                            Variable
+                        </option>
+
+                        <option value="Fijo">
+                            Fijo
+                        </option>
+
+                    </select>
+
+                </div>
+
+                <p
+                    id="expense-form-message"
+                    class="form-message"
+                    hidden
+                ></p>
+
+                <div class="form-actions">
 
                     <button
-                        class="round-add-button"
+                        id="cancel-expense-form"
+                        class="secondary-button"
                         type="button"
-                        aria-label="Agregar gasto"
                     >
-                        +
+                        Cancelar
+                    </button>
+
+                    <button
+                        class="primary-button"
+                        type="submit"
+                    >
+                        Guardar gasto
                     </button>
 
                 </div>
 
-                <article class="total-card expense-total-card">
+            </form>
 
-                    <p>
-                        Total de gastos
-                    </p>
+        </div>
 
-                    <strong id="expense-total">
-                        $0.00
-                    </strong>
+    </div>
 
-                </article>
-
-                <article class="empty-state">
-
-                    <div class="empty-state-icon large">
-                        🧾
-                    </div>
-
-                    <h3>
-                        No hay gastos registrados
-                    </h3>
-
-                    <p>
-                        Registra gastos fijos, variables
-                        y compras por categoría.
-                    </p>
-
-                    <button
-                        class="primary-button"
-                        type="button"
-                    >
-                        Agregar gasto
-                    </button>
-
-                </article>
-
-            </section>
-
+</section>
             <!-- TARJETAS -->
 
             <section
@@ -654,7 +786,212 @@
                 </p>
 
             </section>
+<section
+    id="view-ingresos"
+    class="app-view"
+>
+    <div class="view-header">
+        <div>
+            <p class="view-eyebrow">
+                Finanzas Familiar
+            </p>
 
+            <h2>
+                Ingresos
+            </h2>
+
+            <p class="view-description">
+                Registra y administra el dinero que entra al hogar.
+            </p>
+        </div>
+
+        <button
+            id="open-income-form"
+            class="primary-button"
+            type="button"
+        >
+            + Agregar ingreso
+        </button>
+    </div>
+
+    <article class="summary-card income-summary-card">
+        <p class="summary-label">
+            Total de ingresos
+        </p>
+
+        <strong
+            id="income-total"
+            class="summary-amount"
+        >
+            $0.00
+        </strong>
+
+        <p class="summary-description">
+            Suma de todos los ingresos registrados.
+        </p>
+    </article>
+
+    <div
+        id="income-empty-state"
+        class="empty-state"
+    >
+        <div class="empty-state-icon">
+            $
+        </div>
+
+        <h3>
+            Aún no hay ingresos
+        </h3>
+
+        <p>
+            Agrega tu primer salario, depósito o ingreso adicional.
+        </p>
+    </div>
+
+    <div
+        id="income-list"
+        class="records-list"
+    ></div>
+
+    <div
+        id="income-modal"
+        class="modal-overlay"
+        hidden
+    >
+        <div
+            class="modal-card"
+            role="dialog"
+            aria-modal="true"
+            aria-labelledby="income-form-title"
+        >
+            <div class="modal-header">
+                <div>
+                    <p class="view-eyebrow">
+                        Nuevo registro
+                    </p>
+
+                    <h3 id="income-form-title">
+                        Agregar ingreso
+                    </h3>
+                </div>
+
+                <button
+                    id="close-income-form"
+                    class="icon-button"
+                    type="button"
+                    aria-label="Cerrar formulario"
+                >
+                    ×
+                </button>
+            </div>
+
+            <form id="income-form">
+                <div class="form-group">
+                    <label for="income-name">
+                        Nombre del ingreso
+                    </label>
+
+                    <input
+                        id="income-name"
+                        name="name"
+                        type="text"
+                        placeholder="Ejemplo: Salario Erik"
+                        autocomplete="off"
+                        required
+                    >
+                </div>
+
+                <div class="form-group">
+                    <label for="income-amount">
+                        Cantidad
+                    </label>
+
+                    <input
+                        id="income-amount"
+                        name="amount"
+                        type="number"
+                        min="0.01"
+                        step="0.01"
+                        inputmode="decimal"
+                        placeholder="0.00"
+                        required
+                    >
+                </div>
+
+                <div class="form-group">
+                    <label for="income-date">
+                        Fecha
+                    </label>
+
+                    <input
+                        id="income-date"
+                        name="date"
+                        type="date"
+                        required
+                    >
+                </div>
+
+                <div class="form-group">
+                    <label for="income-category">
+                        Categoría
+                    </label>
+
+                    <select
+                        id="income-category"
+                        name="category"
+                    >
+                        <option value="Salario">
+                            Salario
+                        </option>
+
+                        <option value="Bono">
+                            Bono
+                        </option>
+
+                        <option value="Venta">
+                            Venta
+                        </option>
+
+                        <option value="Negocio">
+                            Negocio
+                        </option>
+
+                        <option value="Transferencia">
+                            Transferencia
+                        </option>
+
+                        <option value="Otros">
+                            Otros
+                        </option>
+                    </select>
+                </div>
+
+                <p
+                    id="income-form-message"
+                    class="form-message"
+                    hidden
+                ></p>
+
+                <div class="form-actions">
+                    <button
+                        id="cancel-income-form"
+                        class="secondary-button"
+                        type="button"
+                    >
+                        Cancelar
+                    </button>
+
+                    <button
+                        class="primary-button"
+                        type="submit"
+                    >
+                        Guardar ingreso
+                    </button>
+                </div>
+            </form>
+        </div>
+    </div>
+</section>
         </main>
 
         <nav
@@ -756,7 +1093,13 @@
 
     </div>
 
-    <script src="js/app.js"></script>
+<script src="js/storage.js"></script>
+<script src="js/income.js"></script>
+<script src="js/income-ui.js"></script>
+<script src="js/expense.js"></script>
+<script src="js/expense-ui.js"></script>
+<script src="js/dashboard.js"></script>
+<script src="js/app.js"></script>
 
 </body>
 </html>
