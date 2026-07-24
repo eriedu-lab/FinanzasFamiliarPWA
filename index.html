@@ -1,0 +1,762 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0, viewport-fit=cover"
+    >
+
+    <meta
+        name="theme-color"
+        content="#F2F2F7"
+    >
+
+    <meta
+        name="apple-mobile-web-app-capable"
+        content="yes"
+    >
+
+    <meta
+        name="apple-mobile-web-app-status-bar-style"
+        content="default"
+    >
+
+    <meta
+        name="apple-mobile-web-app-title"
+        content="Finanzas Familiar"
+    >
+
+    <title>Finanzas Familiar</title>
+
+    <link
+        rel="stylesheet"
+        href="css/styles.css"
+    >
+</head>
+
+<body>
+
+    <div id="app">
+
+        <header class="top-header">
+
+            <div class="top-header-content">
+
+                <div>
+
+                    <p class="header-eyebrow">
+                        Finanzas Familiar
+                    </p>
+
+                    <h1 id="page-title">
+                        Inicio
+                    </h1>
+
+                    <p id="page-subtitle">
+                        Resumen de tus finanzas familiares
+                    </p>
+
+                </div>
+
+                <button
+                    id="profile-button"
+                    class="profile-button"
+                    type="button"
+                    aria-label="Perfil familiar"
+                >
+                    EF
+                </button>
+
+            </div>
+
+        </header>
+
+        <main class="main-content">
+
+            <!-- INICIO -->
+
+            <section
+                id="view-inicio"
+                class="app-view active"
+            >
+
+                <article class="balance-card">
+
+                    <div class="balance-card-header">
+
+                        <div>
+
+                            <p class="balance-label">
+                                Balance disponible
+                            </p>
+
+                            <h2 id="dashboard-balance">
+                                $0.00
+                            </h2>
+
+                        </div>
+
+                        <div class="balance-icon">
+                            💰
+                        </div>
+
+                    </div>
+
+                    <p class="balance-description">
+                        Ingresos menos gastos,
+                        compromisos y mensualidades.
+                    </p>
+
+                </article>
+
+                <div class="summary-grid">
+
+                    <article class="summary-card income-summary">
+
+                        <div class="summary-icon">
+                            ↓
+                        </div>
+
+                        <p>
+                            Ingresos
+                        </p>
+
+                        <strong id="dashboard-income">
+                            $0.00
+                        </strong>
+
+                    </article>
+
+                    <article class="summary-card expense-summary">
+
+                        <div class="summary-icon">
+                            ↑
+                        </div>
+
+                        <p>
+                            Gastos
+                        </p>
+
+                        <strong id="dashboard-expenses">
+                            $0.00
+                        </strong>
+
+                    </article>
+
+                    <article class="summary-card commitment-summary">
+
+                        <div class="summary-icon">
+                            📅
+                        </div>
+
+                        <p>
+                            Compromisos
+                        </p>
+
+                        <strong id="dashboard-commitments">
+                            $0.00
+                        </strong>
+
+                    </article>
+
+                    <article class="summary-card card-summary">
+
+                        <div class="summary-icon">
+                            💳
+                        </div>
+
+                        <p>
+                            Tarjetas
+                        </p>
+
+                        <strong id="dashboard-cards">
+                            $0.00
+                        </strong>
+
+                    </article>
+
+                </div>
+
+                <article class="section-card health-card">
+
+                    <div class="section-card-header">
+
+                        <div>
+
+                            <p class="card-overline">
+                                Análisis mensual
+                            </p>
+
+                            <h2>
+                                Salud financiera
+                            </h2>
+
+                        </div>
+
+                        <div
+                            id="health-score"
+                            class="health-score"
+                        >
+                            0
+                        </div>
+
+                    </div>
+
+                    <p
+                        id="health-message"
+                        class="secondary-text"
+                    >
+                        Agrega ingresos y gastos para
+                        calcular tu puntuación.
+                    </p>
+
+                    <div class="progress-track">
+
+                        <div
+                            id="health-progress"
+                            class="progress-fill"
+                        ></div>
+
+                    </div>
+
+                </article>
+
+                <div class="section-heading">
+
+                    <div>
+
+                        <p class="card-overline">
+                            Próximos movimientos
+                        </p>
+
+                        <h2>
+                            Pagos cercanos
+                        </h2>
+
+                    </div>
+
+                    <button
+                        class="text-button"
+                        type="button"
+                        data-navigation="mas"
+                    >
+                        Ver todos
+                    </button>
+
+                </div>
+
+                <article class="empty-state compact">
+
+                    <div class="empty-state-icon">
+                        📆
+                    </div>
+
+                    <div>
+
+                        <h3>
+                            No tienes pagos próximos
+                        </h3>
+
+                        <p>
+                            Tus compromisos y fechas
+                            importantes aparecerán aquí.
+                        </p>
+
+                    </div>
+
+                </article>
+
+            </section>
+
+            <!-- INGRESOS -->
+
+            <section
+                id="view-ingresos"
+                class="app-view"
+            >
+
+                <div class="screen-heading">
+
+                    <div>
+
+                        <p class="card-overline">
+                            Dinero recibido
+                        </p>
+
+                        <h2>
+                            Ingresos del mes
+                        </h2>
+
+                    </div>
+
+                    <button
+                        class="round-add-button"
+                        type="button"
+                        aria-label="Agregar ingreso"
+                    >
+                        +
+                    </button>
+
+                </div>
+
+                <article class="total-card income-total-card">
+
+                    <p>
+                        Total de ingresos
+                    </p>
+
+                    <strong id="income-total">
+                        $0.00
+                    </strong>
+
+                </article>
+
+                <article class="empty-state">
+
+                    <div class="empty-state-icon large">
+                        💵
+                    </div>
+
+                    <h3>
+                        No hay ingresos registrados
+                    </h3>
+
+                    <p>
+                        Agrega tu salario, el de tu esposa
+                        u otras entradas de dinero.
+                    </p>
+
+                    <button
+                        class="primary-button"
+                        type="button"
+                    >
+                        Agregar ingreso
+                    </button>
+
+                </article>
+
+            </section>
+
+            <!-- GASTOS -->
+
+            <section
+                id="view-gastos"
+                class="app-view"
+            >
+
+                <div class="screen-heading">
+
+                    <div>
+
+                        <p class="card-overline">
+                            Salidas de dinero
+                        </p>
+
+                        <h2>
+                            Gastos del mes
+                        </h2>
+
+                    </div>
+
+                    <button
+                        class="round-add-button"
+                        type="button"
+                        aria-label="Agregar gasto"
+                    >
+                        +
+                    </button>
+
+                </div>
+
+                <article class="total-card expense-total-card">
+
+                    <p>
+                        Total de gastos
+                    </p>
+
+                    <strong id="expense-total">
+                        $0.00
+                    </strong>
+
+                </article>
+
+                <article class="empty-state">
+
+                    <div class="empty-state-icon large">
+                        🧾
+                    </div>
+
+                    <h3>
+                        No hay gastos registrados
+                    </h3>
+
+                    <p>
+                        Registra gastos fijos, variables
+                        y compras por categoría.
+                    </p>
+
+                    <button
+                        class="primary-button"
+                        type="button"
+                    >
+                        Agregar gasto
+                    </button>
+
+                </article>
+
+            </section>
+
+            <!-- TARJETAS -->
+
+            <section
+                id="view-tarjetas"
+                class="app-view"
+            >
+
+                <div class="screen-heading">
+
+                    <div>
+
+                        <p class="card-overline">
+                            Crédito y mensualidades
+                        </p>
+
+                        <h2>
+                            Mis tarjetas
+                        </h2>
+
+                    </div>
+
+                    <button
+                        class="round-add-button"
+                        type="button"
+                        aria-label="Agregar tarjeta"
+                    >
+                        +
+                    </button>
+
+                </div>
+
+                <article class="empty-state">
+
+                    <div class="empty-state-icon large">
+                        💳
+                    </div>
+
+                    <h3>
+                        No hay tarjetas registradas
+                    </h3>
+
+                    <p>
+                        Administra límites, fechas de corte,
+                        fechas de pago y compras a meses.
+                    </p>
+
+                    <button
+                        class="primary-button"
+                        type="button"
+                    >
+                        Agregar tarjeta
+                    </button>
+
+                </article>
+
+            </section>
+
+            <!-- MÁS -->
+
+            <section
+                id="view-mas"
+                class="app-view"
+            >
+
+                <div class="section-heading simple">
+
+                    <div>
+
+                        <p class="card-overline">
+                            Organización
+                        </p>
+
+                        <h2>
+                            Finanzas
+                        </h2>
+
+                    </div>
+
+                </div>
+
+                <div class="menu-group">
+
+                    <button
+                        class="menu-item"
+                        type="button"
+                    >
+
+                        <span class="menu-item-icon blue">
+                            📋
+                        </span>
+
+                        <span class="menu-item-content">
+
+                            <strong>
+                                Compromisos
+                            </strong>
+
+                            <small>
+                                Pagos recurrentes,
+                                créditos y suscripciones
+                            </small>
+
+                        </span>
+
+                        <span class="menu-chevron">
+                            ›
+                        </span>
+
+                    </button>
+
+                    <button
+                        class="menu-item"
+                        type="button"
+                    >
+
+                        <span class="menu-item-icon orange">
+                            📆
+                        </span>
+
+                        <span class="menu-item-content">
+
+                            <strong>
+                                Calendario financiero
+                            </strong>
+
+                            <small>
+                                Fechas de pagos y movimientos
+                            </small>
+
+                        </span>
+
+                        <span class="menu-chevron">
+                            ›
+                        </span>
+
+                    </button>
+
+                    <button
+                        class="menu-item"
+                        type="button"
+                    >
+
+                        <span class="menu-item-icon purple">
+                            📊
+                        </span>
+
+                        <span class="menu-item-content">
+
+                            <strong>
+                                Historial financiero
+                            </strong>
+
+                            <small>
+                                Consulta tus finanzas por mes
+                            </small>
+
+                        </span>
+
+                        <span class="menu-chevron">
+                            ›
+                        </span>
+
+                    </button>
+
+                    <button
+                        class="menu-item"
+                        type="button"
+                    >
+
+                        <span class="menu-item-icon green">
+                            🎯
+                        </span>
+
+                        <span class="menu-item-content">
+
+                            <strong>
+                                Metas de ahorro
+                            </strong>
+
+                            <small>
+                                Crea objetivos y controla
+                                tu avance
+                            </small>
+
+                        </span>
+
+                        <span class="menu-chevron">
+                            ›
+                        </span>
+
+                    </button>
+
+                </div>
+
+                <div class="section-heading simple tools-heading">
+
+                    <div>
+
+                        <p class="card-overline">
+                            Aplicación
+                        </p>
+
+                        <h2>
+                            Herramientas
+                        </h2>
+
+                    </div>
+
+                </div>
+
+                <div class="menu-group">
+
+                    <button
+                        class="menu-item"
+                        type="button"
+                    >
+
+                        <span class="menu-item-icon gray">
+                            ⚙️
+                        </span>
+
+                        <span class="menu-item-content">
+
+                            <strong>
+                                Configuración
+                            </strong>
+
+                            <small>
+                                Preferencias y respaldo
+                            </small>
+
+                        </span>
+
+                        <span class="menu-chevron">
+                            ›
+                        </span>
+
+                    </button>
+
+                </div>
+
+                <p class="app-version">
+                    Finanzas Familiar · Versión PWA
+                </p>
+
+            </section>
+
+        </main>
+
+        <nav
+            class="bottom-navigation"
+            aria-label="Navegación principal"
+        >
+
+            <button
+                class="nav-button active"
+                type="button"
+                data-view="inicio"
+                data-title="Inicio"
+                data-subtitle="Resumen de tus finanzas familiares"
+            >
+
+                <span class="nav-icon">
+                    ⌂
+                </span>
+
+                <span>
+                    Inicio
+                </span>
+
+            </button>
+
+            <button
+                class="nav-button"
+                type="button"
+                data-view="ingresos"
+                data-title="Ingresos"
+                data-subtitle="Administra el dinero que recibes"
+            >
+
+                <span class="nav-icon">
+                    ↓
+                </span>
+
+                <span>
+                    Ingresos
+                </span>
+
+            </button>
+
+            <button
+                class="nav-button"
+                type="button"
+                data-view="gastos"
+                data-title="Gastos"
+                data-subtitle="Controla tus salidas de dinero"
+            >
+
+                <span class="nav-icon">
+                    ↑
+                </span>
+
+                <span>
+                    Gastos
+                </span>
+
+            </button>
+
+            <button
+                class="nav-button"
+                type="button"
+                data-view="tarjetas"
+                data-title="Tarjetas"
+                data-subtitle="Crédito, pagos y mensualidades"
+            >
+
+                <span class="nav-icon">
+                    ▣
+                </span>
+
+                <span>
+                    Tarjetas
+                </span>
+
+            </button>
+
+            <button
+                class="nav-button"
+                type="button"
+                data-view="mas"
+                data-title="Más"
+                data-subtitle="Herramientas financieras"
+            >
+
+                <span class="nav-icon dots">
+                    •••
+                </span>
+
+                <span>
+                    Más
+                </span>
+
+            </button>
+
+        </nav>
+
+    </div>
+
+    <script src="js/app.js"></script>
+
+</body>
+</html>
