@@ -2715,3 +2715,79 @@ html[data-finance-theme="dark"]
         gap: 5px;
     }
 }
+
+
+/* =====================================
+   VERSIÓN 4.0 · PWA Y PULIDO FINAL
+===================================== */
+
+html { -webkit-text-size-adjust: 100%; scroll-behavior: smooth; }
+body { overscroll-behavior-y: none; -webkit-tap-highlight-color: transparent; }
+button, input, select, textarea { font: inherit; }
+button { touch-action: manipulation; }
+.app-view[hidden] { display: none !important; }
+
+body.is-offline::before {
+    content: "Sin conexión";
+    position: fixed;
+    top: max(8px, env(safe-area-inset-top));
+    left: 50%;
+    transform: translateX(-50%);
+    z-index: 9998;
+    padding: 6px 12px;
+    border-radius: 999px;
+    background: #3a3a3c;
+    color: #fff;
+    font-size: 12px;
+    font-weight: 700;
+    box-shadow: 0 4px 16px rgba(0,0,0,.18);
+}
+
+.pwa-toast {
+    position: fixed;
+    left: 16px;
+    right: 16px;
+    bottom: calc(92px + env(safe-area-inset-bottom));
+    z-index: 10000;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 14px;
+    max-width: 520px;
+    margin: 0 auto;
+    padding: 13px 14px;
+    border-radius: 16px;
+    background: rgba(28, 28, 30, .94);
+    color: #fff;
+    box-shadow: 0 12px 36px rgba(0,0,0,.24);
+    backdrop-filter: blur(18px);
+    -webkit-backdrop-filter: blur(18px);
+    opacity: 0;
+    transform: translateY(16px);
+    transition: opacity .2s ease, transform .2s ease;
+}
+.pwa-toast.visible { opacity: 1; transform: translateY(0); }
+.pwa-toast button {
+    flex: 0 0 auto;
+    border: 0;
+    border-radius: 10px;
+    padding: 8px 11px;
+    background: #0a84ff;
+    color: #fff;
+    font-weight: 800;
+}
+
+@media (display-mode: standalone) {
+    .top-header { padding-top: max(12px, env(safe-area-inset-top)); }
+    .bottom-navigation { padding-bottom: max(8px, env(safe-area-inset-bottom)); }
+}
+
+@media (min-width: 900px) {
+    .main-content { max-width: 1120px; margin-inline: auto; }
+    .top-header-content { max-width: 1120px; margin-inline: auto; }
+    .bottom-navigation { max-width: 720px; left: 50%; right: auto; transform: translateX(-50%); border-radius: 22px 22px 0 0; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+    *, *::before, *::after { scroll-behavior: auto !important; animation-duration: .01ms !important; transition-duration: .01ms !important; }
+}

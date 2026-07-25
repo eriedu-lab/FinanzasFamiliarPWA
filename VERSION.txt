@@ -1,0 +1,3 @@
+Finanzas Familiar PWA
+Versión 4.0.0
+Actualización final integrada

@@ -28,12 +28,16 @@
         content="Finanzas Familiar"
     >
 
+    <meta name="description" content="Control familiar de ingresos, gastos, tarjetas, pagos, metas y reportes.">
+    <meta name="application-name" content="Finanzas Familiar">
+    <meta name="format-detection" content="telephone=no">
+
     <title>Finanzas Familiar</title>
 
-    <link
-        rel="stylesheet"
-        href="css/styles.css"
-    >
+    <link rel="manifest" href="manifest.webmanifest">
+    <link rel="apple-touch-icon" href="icons/apple-touch-icon.png">
+    <link rel="icon" type="image/png" sizes="192x192" href="icons/icon-192.png">
+    <link rel="stylesheet" href="css/styles.css?v=4.0.0">
 </head>
 
 <body>
@@ -1316,7 +1320,7 @@
                 </div>
 
                 <p class="app-version">
-                    Finanzas Familiar · Versión PWA
+                    Finanzas Familiar · Versión 4.0
                 </p>
 
             </section>
@@ -2680,31 +2684,47 @@
 
     </div>
 
-<script src="js/storage.js"></script>
+<!-- Núcleo y almacenamiento -->
+<script src="js/storage.js?v=4.0.0"></script>
+<script src="js/income.js?v=4.0.0"></script>
+<script src="js/expense.js?v=4.0.0"></script>
+<script src="js/cards.js?v=4.0.0"></script>
+<script src="js/plans.js?v=4.0.0"></script>
+<script src="js/manager-bridge.js?v=4.0.0"></script>
 
-<script src="js/income.js"></script>
-<script src="js/income-ui.js"></script>
+<!-- Funciones financieras -->
+<script src="js/card-transactions.js?v=4.0.0"></script>
+<script src="js/calendar.js?v=4.0.0"></script>
+<script src="js/goals.js?v=4.0.0"></script>
+<script src="js/history.js?v=4.0.0"></script>
+<script src="js/statistics.js?v=4.0.0"></script>
+<script src="js/budget.js?v=4.0.0"></script>
+<script src="js/reminders.js?v=4.0.0"></script>
+<script src="js/backup.js?v=4.0.0"></script>
+<script src="js/reports.js?v=4.0.0"></script>
 
-<script src="js/expense.js"></script>
-<script src="js/expense-ui.js"></script>
+<!-- Interfaces -->
+<script src="js/income-ui.js?v=4.0.0"></script>
+<script src="js/expense-ui.js?v=4.0.0"></script>
+<script src="js/cards-ui.js?v=4.0.0"></script>
+<script src="js/card-transactions-ui.js?v=4.0.0"></script>
+<script src="js/plans-ui.js?v=4.0.0"></script>
+<script src="js/calendar-ui.js?v=4.0.0"></script>
+<script src="js/goals-ui.js?v=4.0.0"></script>
+<script src="js/history-ui.js?v=4.0.0"></script>
+<script src="js/statistics-ui.js?v=4.0.0"></script>
+<script src="js/budget-ui.js?v=4.0.0"></script>
+<script src="js/reminders-ui.js?v=4.0.0"></script>
+<script src="js/backup-ui.js?v=4.0.0"></script>
+<script src="js/reports-ui.js?v=4.0.0"></script>
 
-<script src="js/cards.js"></script>
-<script src="js/cards-ui.js"></script>
-
-<script src="js/plans.js"></script>
-
-<script src="js/manager-bridge.js"></script>
-
-<script src="js/calendar.js"></script>
-<script src="js/calendar-ui.js"></script>
-
-    <script src="js/goals.js"></script>
-    <script src="js/goals-ui.js"></script>
-
-<script src="js/dashboard.js"></script>
-
-<script src="js/app.js"></script>
-<script src="js/navigation-self-check.js"></script>
+<!-- Aplicación y PWA -->
+<script src="js/dashboard.js?v=4.0.0"></script>
+<script src="js/professional-ui.js?v=4.0.0"></script>
+<script src="js/app.js?v=4.0.0"></script>
+<script src="js/navigation-fix.js?v=4.0.0"></script>
+<script src="js/navigation-self-check.js?v=4.0.0"></script>
+<script src="js/pwa.js?v=4.0.0"></script>
 
 </body>
 </html>
