@@ -79,10 +79,10 @@
 
             <section
                 id="view-inicio"
-                class="app-view active"
+                class="app-view active dashboard-view"
             >
 
-                <article class="balance-card">
+                <article class="balance-card dashboard-hero">
 
                     <div class="balance-card-header">
 
@@ -95,6 +95,21 @@
                             <h2 id="dashboard-balance">
                                 $0.00
                             </h2>
+
+                            <div class="balance-meta">
+
+                                <span
+                                    id="dashboard-balance-status"
+                                    class="balance-status neutral"
+                                >
+                                    Balance mensual
+                                </span>
+
+                                <span id="dashboard-current-month">
+                                    Mes actual
+                                </span>
+
+                            </div>
 
                         </div>
 
@@ -109,14 +124,25 @@
                         compromisos y mensualidades.
                     </p>
 
+                    <div class="hero-decoration hero-decoration-one"></div>
+                    <div class="hero-decoration hero-decoration-two"></div>
+
                 </article>
 
-                <div class="summary-grid">
+                <div class="summary-grid dashboard-summary-grid">
 
                     <article class="summary-card income-summary">
 
-                        <div class="summary-icon">
-                            ↓
+                        <div class="summary-card-top">
+
+                            <div class="summary-icon">
+                                ↓
+                            </div>
+
+                            <span class="summary-badge positive">
+                                Entrada
+                            </span>
+
                         </div>
 
                         <p>
@@ -131,8 +157,16 @@
 
                     <article class="summary-card expense-summary">
 
-                        <div class="summary-icon">
-                            ↑
+                        <div class="summary-card-top">
+
+                            <div class="summary-icon">
+                                ↑
+                            </div>
+
+                            <span class="summary-badge negative">
+                                Salida
+                            </span>
+
                         </div>
 
                         <p>
@@ -147,8 +181,16 @@
 
                     <article class="summary-card commitment-summary">
 
-                        <div class="summary-icon">
-                            📅
+                        <div class="summary-card-top">
+
+                            <div class="summary-icon">
+                                📅
+                            </div>
+
+                            <span class="summary-badge warning">
+                                Mensual
+                            </span>
+
                         </div>
 
                         <p>
@@ -163,8 +205,16 @@
 
                     <article class="summary-card card-summary">
 
-                        <div class="summary-icon">
-                            💳
+                        <div class="summary-card-top">
+
+                            <div class="summary-icon">
+                                💳
+                            </div>
+
+                            <span class="summary-badge info">
+                                Crédito
+                            </span>
+
                         </div>
 
                         <p>
@@ -179,51 +229,144 @@
 
                 </div>
 
-                <article class="section-card health-card">
+                <div class="dashboard-primary-grid">
 
-                    <div class="section-card-header">
+                    <article class="section-card health-card dashboard-health-card">
 
-                        <div>
+                        <div class="section-card-header">
 
-                            <p class="card-overline">
-                                Análisis mensual
-                            </p>
+                            <div>
 
-                            <h2>
-                                Salud financiera
-                            </h2>
+                                <p class="card-overline">
+                                    Análisis mensual
+                                </p>
+
+                                <h2>
+                                    Salud financiera
+                                </h2>
+
+                            </div>
+
+                            <div class="health-ring">
+
+                                <svg
+                                    viewBox="0 0 44 44"
+                                    aria-hidden="true"
+                                >
+                                    <circle
+                                        class="health-ring-track"
+                                        cx="22"
+                                        cy="22"
+                                        r="18"
+                                    ></circle>
+
+                                    <circle
+                                        id="health-ring-progress"
+                                        class="health-ring-progress"
+                                        cx="22"
+                                        cy="22"
+                                        r="18"
+                                    ></circle>
+                                </svg>
+
+                                <strong id="health-score">
+                                    0
+                                </strong>
+
+                            </div>
 
                         </div>
 
-                        <div
-                            id="health-score"
-                            class="health-score"
+                        <p
+                            id="health-message"
+                            class="secondary-text health-message"
                         >
-                            0
+                            Agrega ingresos y gastos para
+                            calcular tu puntuación.
+                        </p>
+
+                        <div class="health-footer">
+
+                            <span id="health-label">
+                                Sin evaluación
+                            </span>
+
+                            <div class="progress-track">
+
+                                <div
+                                    id="health-progress"
+                                    class="progress-fill"
+                                ></div>
+
+                            </div>
+
                         </div>
 
-                    </div>
+                    </article>
 
-                    <p
-                        id="health-message"
-                        class="secondary-text"
+                    <article
+                        id="dashboard-budget-summary"
+                        class="section-card dashboard-budget-card"
                     >
-                        Agrega ingresos y gastos para
-                        calcular tu puntuación.
-                    </p>
 
-                    <div class="progress-track">
+                        <div class="section-card-header">
 
-                        <div
-                            id="health-progress"
-                            class="progress-fill"
-                        ></div>
+                            <div>
 
-                    </div>
+                                <p class="card-overline">
+                                    Control mensual
+                                </p>
 
-                </article>
+                                <h2>
+                                    Presupuesto
+                                </h2>
 
-                <div class="section-heading">
+                            </div>
+
+                            <button
+                                id="dashboard-open-budget"
+                                class="card-action-button"
+                                type="button"
+                            >
+                                Administrar
+                            </button>
+
+                        </div>
+
+                        <div class="budget-dashboard-values">
+
+                            <strong id="dashboard-budget-value">
+                                Sin configurar
+                            </strong>
+
+                            <span id="dashboard-budget-percentage">
+                                0%
+                            </span>
+
+                        </div>
+
+                        <p
+                            id="dashboard-budget-message"
+                            class="secondary-text"
+                        >
+                            Configura tu presupuesto desde Más.
+                        </p>
+
+                        <div class="progress-track budget-dashboard-track">
+
+                            <div
+                                id="dashboard-budget-progress"
+                                class="progress-fill budget-dashboard-progress"
+                                style="width: 0%;"
+                            ></div>
+
+                        </div>
+
+                    </article>
+
+                </div>
+
+                <div class="section-heading dashboard-section-heading">
 
                     <div>
 
@@ -238,31 +381,107 @@
                     </div>
 
                     <button
+                        id="dashboard-open-reminders"
                         class="text-button"
                         type="button"
-                        data-navigation="mas"
                     >
                         Ver todos
                     </button>
 
                 </div>
 
-                <article class="empty-state compact">
+                <article
+                    id="dashboard-reminders-summary"
+                    class="section-card dashboard-reminder-card"
+                >
 
-                    <div class="empty-state-icon">
-                        📆
+                    <div class="dashboard-reminder-icon">
+                        <span id="dashboard-reminders-icon">
+                            ✅
+                        </span>
                     </div>
 
-                    <div>
+                    <div class="dashboard-reminder-content">
 
-                        <h3>
-                            No tienes pagos próximos
-                        </h3>
+                        <strong id="dashboard-reminders-title">
+                            Sin pagos próximos
+                        </strong>
 
-                        <p>
-                            Tus compromisos y fechas
-                            importantes aparecerán aquí.
+                        <p id="dashboard-reminders-message">
+                            Tus compromisos y fechas importantes aparecerán aquí.
                         </p>
+
+                    </div>
+
+                    <span
+                        id="dashboard-reminders-badge"
+                        class="dashboard-reminder-badge"
+                    >
+                        Al día
+                    </span>
+
+                </article>
+
+                <article
+                    id="dashboard-goals-summary"
+                    class="section-card dashboard-goals-card"
+                >
+
+                    <div class="section-card-header">
+
+                        <div>
+
+                            <p class="card-overline">
+                                Objetivos familiares
+                            </p>
+
+                            <h2>
+                                Metas de ahorro
+                            </h2>
+
+                        </div>
+
+                        <button
+                            class="card-action-button"
+                            type="button"
+                            data-navigation="metas"
+                            id="dashboard-open-goals"
+                        >
+                            Ver metas
+                        </button>
+
+                    </div>
+
+                    <div class="goal-dashboard-row">
+
+                        <div>
+
+                            <strong id="dashboard-goals-value">
+                                Sin metas
+                            </strong>
+
+                            <p
+                                id="dashboard-goals-message"
+                                class="secondary-text"
+                            >
+                                Crea una meta desde la sección Más.
+                            </p>
+
+                        </div>
+
+                        <span class="goal-dashboard-icon">
+                            🎯
+                        </span>
+
+                    </div>
+
+                    <div class="progress-track">
+
+                        <div
+                            id="dashboard-goals-progress"
+                            class="progress-fill goal-dashboard-progress"
+                            style="width: 0%;"
+                        ></div>
 
                     </div>
 
@@ -270,7 +489,6 @@
 
             </section>
 
-            
             <!-- GASTOS -->
 
 <section
@@ -540,63 +758,313 @@
     </div>
 
 </section>
-            <!-- TARJETAS -->
+           <section
+    id="view-tarjetas"
+    class="app-view"
 
-            <section
-                id="view-tarjetas"
-                class="app-view"
+>
+
+    <header class="view-header">
+
+        <div>
+
+            <p class="eyebrow">
+                Crédito
+            </p>
+
+            <h2>
+                Tarjetas
+            </h2>
+
+            <p class="view-description">
+                Administra tus tarjetas de crédito,
+                límites y fechas importantes.
+            </p>
+
+        </div>
+
+        <button
+            id="open-card-form"
+            class="primary-button"
+            type="button"
+        >
+            + Agregar tarjeta
+        </button>
+
+    </header>
+
+    <section class="summary-grid">
+
+        <article class="summary-card">
+
+            <span class="summary-label">
+                Límite total
+            </span>
+
+            <strong
+                id="cards-total-limit"
+                class="summary-value"
             >
+                $0.00
+            </strong>
 
-                <div class="screen-heading">
+        </article>
 
-                    <div>
+        <article class="summary-card">
 
-                        <p class="card-overline">
-                            Crédito y mensualidades
-                        </p>
+            <span class="summary-label">
+                Crédito utilizado
+            </span>
 
-                        <h2>
-                            Mis tarjetas
-                        </h2>
+            <strong
+                id="cards-total-used"
+                class="summary-value"
+            >
+                $0.00
+            </strong>
+
+        </article>
+
+        <article class="summary-card">
+
+            <span class="summary-label">
+                Crédito disponible
+            </span>
+
+            <strong
+                id="cards-total-available"
+                class="summary-value"
+            >
+                $0.00
+            </strong>
+
+        </article>
+
+    </section>
+
+    <div
+        id="cards-empty-state"
+        class="empty-state"
+    >
+
+        <h3>
+            Aún no tienes tarjetas
+        </h3>
+
+        <p>
+            Agrega tu primera tarjeta para controlar
+            su límite y fechas de pago.
+        </p>
+
+    </div>
+
+    <div
+        id="cards-list"
+        class="records-list"
+    ></div>
+
+   <div
+    id="card-modal"
+    class="modal-overlay"
+    hidden
+>
+
+    <div
+        class="modal-card"
+        role="dialog"
+        aria-modal="true"
+        aria-labelledby="card-form-title"
+    >
+
+            <header class="modal-header">
+
+                <div>
+
+                    <p class="eyebrow">
+                        Tarjeta de crédito
+                    </p>
+
+                    <h3 id="card-form-title">
+                        Agregar tarjeta
+                    </h3>
+
+                </div>
+
+                <button
+                    id="close-card-form"
+                    class="icon-button"
+                    type="button"
+                    aria-label="Cerrar formulario"
+                >
+                    ×
+                </button>
+
+            </header>
+
+            <form id="card-form">
+
+                <div class="form-group">
+
+                    <label for="card-name">
+                        Nombre de la tarjeta
+                    </label>
+
+                    <input
+                        id="card-name"
+                        name="card-name"
+                        type="text"
+                        placeholder="Ejemplo: BBVA Azul"
+                        autocomplete="off"
+                        required
+                    >
+
+                </div>
+
+                <div class="form-group">
+
+                    <label for="card-bank">
+                        Banco
+                    </label>
+
+                    <input
+                        id="card-bank"
+                        name="card-bank"
+                        type="text"
+                        placeholder="Ejemplo: BBVA"
+                        autocomplete="off"
+                        required
+                    >
+
+                </div>
+
+                <div class="form-grid">
+
+                    <div class="form-group">
+
+                        <label for="card-limit">
+                            Límite de crédito
+                        </label>
+
+                        <input
+                            id="card-limit"
+                            name="card-limit"
+                            type="number"
+                            min="0"
+                            step="0.01"
+                            placeholder="0.00"
+                            required
+                        >
 
                     </div>
 
-                    <button
-                        class="round-add-button"
-                        type="button"
-                        aria-label="Agregar tarjeta"
+                    <div class="form-group">
+
+                        <label for="card-used">
+                            Saldo utilizado
+                        </label>
+
+                        <input
+                            id="card-used"
+                            name="card-used"
+                            type="number"
+                            min="0"
+                            step="0.01"
+                            placeholder="0.00"
+                            value="0"
+                            required
+                        >
+
+                    </div>
+
+                </div>
+
+                <div class="form-grid">
+
+                    <div class="form-group">
+
+                        <label for="card-cut-day">
+                            Día de corte
+                        </label>
+
+                        <input
+                            id="card-cut-day"
+                            name="card-cut-day"
+                            type="number"
+                            min="1"
+                            max="31"
+                            placeholder="Ejemplo: 12"
+                            required
+                        >
+
+                    </div>
+
+                    <div class="form-group">
+
+                        <label for="card-due-day">
+                            Día límite de pago
+                        </label>
+
+                        <input
+                            id="card-due-day"
+                            name="card-due-day"
+                            type="number"
+                            min="1"
+                            max="31"
+                            placeholder="Ejemplo: 2"
+                            required
+                        >
+
+                    </div>
+
+                </div>
+
+                <div class="form-group">
+
+                    <label for="card-color">
+                        Color de la tarjeta
+                    </label>
+
+                    <input
+                        id="card-color"
+                        name="card-color"
+                        type="color"
+                        value="#2563eb"
                     >
-                        +
+
+                </div>
+
+                <p
+                    id="card-form-message"
+                    class="form-message"
+                    hidden
+                ></p>
+
+                <div class="form-actions">
+
+                    <button
+                        id="cancel-card-form"
+                        class="secondary-button"
+                        type="button"
+                    >
+                        Cancelar
+                    </button>
+
+                    <button
+                        class="primary-button"
+                        type="submit"
+                    >
+                        Guardar tarjeta
                     </button>
 
                 </div>
 
-                <article class="empty-state">
+            </form>
 
-                    <div class="empty-state-icon large">
-                        💳
-                    </div>
+        </div>
 
-                    <h3>
-                        No hay tarjetas registradas
-                    </h3>
+    </div>
 
-                    <p>
-                        Administra límites, fechas de corte,
-                        fechas de pago y compras a meses.
-                    </p>
-
-                    <button
-                        class="primary-button"
-                        type="button"
-                    >
-                        Agregar tarjeta
-                    </button>
-
-                </article>
-
-            </section>
-
+</section>
             <!-- MÁS -->
 
             <section
@@ -677,9 +1145,43 @@
 
                     </button>
 
+
                     <button
                         class="menu-item"
                         type="button"
+                        data-navigation="estadisticas"
+                        data-title="Estadísticas"
+                        data-subtitle="Analiza la evolución de tus finanzas"
+                    >
+
+                        <span class="menu-item-icon blue">
+                            📈
+                        </span>
+
+                        <span class="menu-item-content">
+
+                            <strong>
+                                Estadísticas
+                            </strong>
+
+                            <small>
+                                Gráficos, tendencias e indicadores
+                            </small>
+
+                        </span>
+
+                        <span class="menu-chevron">
+                            ›
+                        </span>
+
+                    </button>
+
+                    <button
+                        class="menu-item"
+                        type="button"
+                        data-navigation="historial"
+                        data-title="Historial financiero"
+                        data-subtitle="Consulta y compara tus finanzas por mes"
                     >
 
                         <span class="menu-item-icon purple">
@@ -707,6 +1209,8 @@
                     <button
                         class="menu-item"
                         type="button"
+                    
+                        data-navigation="metas"
                     >
 
                         <span class="menu-item-icon green">
@@ -786,6 +1290,739 @@
                 </p>
 
             </section>
+
+            <!-- METAS DE AHORRO -->
+
+            <section
+                id="view-metas"
+                class="app-view"
+                hidden
+            >
+
+                <div class="view-header">
+
+                    <div>
+
+                        <p class="view-eyebrow">
+                            Objetivos familiares
+                        </p>
+
+                        <h2>
+                            Metas de ahorro
+                        </h2>
+
+                        <p class="view-description">
+                            Crea objetivos, registra aportaciones y controla tu avance.
+                        </p>
+
+                    </div>
+
+                    <button
+                        id="open-goal-form"
+                        class="primary-button"
+                        type="button"
+                    >
+                        + Agregar meta
+                    </button>
+
+                </div>
+
+                <section class="summary-grid">
+
+                    <article class="summary-card">
+
+                        <span class="summary-label">
+                            Total objetivo
+                        </span>
+
+                        <strong
+                            id="goals-total-target"
+                            class="summary-value"
+                        >
+                            $0.00
+                        </strong>
+
+                    </article>
+
+                    <article class="summary-card">
+
+                        <span class="summary-label">
+                            Total ahorrado
+                        </span>
+
+                        <strong
+                            id="goals-total-saved"
+                            class="summary-value"
+                        >
+                            $0.00
+                        </strong>
+
+                    </article>
+
+                    <article class="summary-card">
+
+                        <span class="summary-label">
+                            Cantidad faltante
+                        </span>
+
+                        <strong
+                            id="goals-total-remaining"
+                            class="summary-value"
+                        >
+                            $0.00
+                        </strong>
+
+                    </article>
+
+                </section>
+
+                <div
+                    id="goals-empty-state"
+                    class="empty-state"
+                >
+
+                    <div class="empty-state-icon">
+                        🎯
+                    </div>
+
+                    <h3>
+                        Aún no tienes metas
+                    </h3>
+
+                    <p>
+                        Crea tu primer objetivo de ahorro familiar.
+                    </p>
+
+                </div>
+
+                <div
+                    id="goals-list"
+                    class="records-list"
+                ></div>
+
+                <div
+                    id="goal-modal"
+                    class="modal-overlay"
+                    hidden
+                >
+
+                    <div
+                        class="modal-card"
+                        role="dialog"
+                        aria-modal="true"
+                        aria-labelledby="goal-form-title"
+                    >
+
+                        <div class="modal-header">
+
+                            <div>
+
+                                <p class="view-eyebrow">
+                                    Objetivo de ahorro
+                                </p>
+
+                                <h3 id="goal-form-title">
+                                    Agregar meta
+                                </h3>
+
+                            </div>
+
+                            <button
+                                id="close-goal-form"
+                                class="icon-button"
+                                type="button"
+                                aria-label="Cerrar formulario"
+                            >
+                                ×
+                            </button>
+
+                        </div>
+
+                        <form id="goal-form">
+
+                            <div class="form-group">
+
+                                <label for="goal-name">
+                                    Nombre de la meta
+                                </label>
+
+                                <input
+                                    id="goal-name"
+                                    type="text"
+                                    placeholder="Ejemplo: Fondo de emergencia"
+                                    autocomplete="off"
+                                    required
+                                >
+
+                            </div>
+
+                            <div class="form-grid">
+
+                                <div class="form-group">
+
+                                    <label for="goal-target">
+                                        Cantidad objetivo
+                                    </label>
+
+                                    <input
+                                        id="goal-target"
+                                        type="number"
+                                        min="0.01"
+                                        step="0.01"
+                                        inputmode="decimal"
+                                        placeholder="0.00"
+                                        required
+                                    >
+
+                                </div>
+
+                                <div class="form-group">
+
+                                    <label for="goal-initial">
+                                        Ahorro inicial
+                                    </label>
+
+                                    <input
+                                        id="goal-initial"
+                                        type="number"
+                                        min="0"
+                                        step="0.01"
+                                        inputmode="decimal"
+                                        placeholder="0.00"
+                                        value="0"
+                                        required
+                                    >
+
+                                </div>
+
+                            </div>
+
+                            <div class="form-group">
+
+                                <label for="goal-deadline">
+                                    Fecha límite
+                                </label>
+
+                                <input
+                                    id="goal-deadline"
+                                    type="date"
+                                    required
+                                >
+
+                            </div>
+
+                            <p
+                                id="goal-form-message"
+                                class="form-message"
+                                hidden
+                            ></p>
+
+                            <div class="form-actions">
+
+                                <button
+                                    id="cancel-goal-form"
+                                    class="secondary-button"
+                                    type="button"
+                                >
+                                    Cancelar
+                                </button>
+
+                                <button
+                                    class="primary-button"
+                                    type="submit"
+                                >
+                                    Guardar meta
+                                </button>
+
+                            </div>
+
+                        </form>
+
+                    </div>
+
+                </div>
+
+                <div
+                    id="contribution-modal"
+                    class="modal-overlay"
+                    hidden
+                >
+
+                    <div
+                        class="modal-card"
+                        role="dialog"
+                        aria-modal="true"
+                        aria-labelledby="contribution-form-title"
+                    >
+
+                        <div class="modal-header">
+
+                            <div>
+
+                                <p class="view-eyebrow">
+                                    Movimiento
+                                </p>
+
+                                <h3 id="contribution-form-title">
+                                    Registrar aportación
+                                </h3>
+
+                            </div>
+
+                            <button
+                                id="close-contribution-form"
+                                class="icon-button"
+                                type="button"
+                                aria-label="Cerrar formulario"
+                            >
+                                ×
+                            </button>
+
+                        </div>
+
+                        <form id="contribution-form">
+
+                            <div class="form-group">
+
+                                <label for="contribution-amount">
+                                    Cantidad
+                                </label>
+
+                                <input
+                                    id="contribution-amount"
+                                    type="number"
+                                    min="0.01"
+                                    step="0.01"
+                                    inputmode="decimal"
+                                    placeholder="0.00"
+                                    required
+                                >
+
+                            </div>
+
+                            <div class="form-group">
+
+                                <label for="contribution-note">
+                                    Nota
+                                </label>
+
+                                <input
+                                    id="contribution-note"
+                                    type="text"
+                                    placeholder="Ejemplo: Aportación de quincena"
+                                    autocomplete="off"
+                                >
+
+                            </div>
+
+                            <p
+                                id="contribution-form-message"
+                                class="form-message"
+                                hidden
+                            ></p>
+
+                            <div class="form-actions">
+
+                                <button
+                                    id="cancel-contribution-form"
+                                    class="secondary-button"
+                                    type="button"
+                                >
+                                    Cancelar
+                                </button>
+
+                                <button
+                                    class="primary-button"
+                                    type="submit"
+                                >
+                                    Guardar aportación
+                                </button>
+
+                            </div>
+
+                        </form>
+
+                    </div>
+
+                </div>
+
+            </section>
+
+
+            <!-- ESTADÍSTICAS -->
+
+            <section
+                id="view-estadisticas"
+                class="app-view"
+                hidden
+            >
+
+                <div class="view-header">
+
+                    <div>
+
+                        <p class="view-eyebrow">
+                            Análisis financiero
+                        </p>
+
+                        <h2>
+                            Centro de estadísticas
+                        </h2>
+
+                        <p class="view-description">
+                            Analiza ingresos, gastos, ahorro, tarjetas y tendencias de los últimos 12 meses.
+                        </p>
+
+                    </div>
+
+                    <button
+                        id="statistics-refresh"
+                        class="secondary-button"
+                        type="button"
+                    >
+                        Actualizar
+                    </button>
+
+                </div>
+
+                <section class="summary-grid statistics-summary-grid">
+
+                    <article class="summary-card income-summary">
+                        <span class="summary-label">Ingresos del mes</span>
+                        <strong id="statistics-income" class="summary-value">$0.00</strong>
+                    </article>
+
+                    <article class="summary-card expense-summary">
+                        <span class="summary-label">Gastos del mes</span>
+                        <strong id="statistics-expenses" class="summary-value">$0.00</strong>
+                    </article>
+
+                    <article class="summary-card">
+                        <span class="summary-label">Capacidad de ahorro</span>
+                        <strong id="statistics-savings-rate" class="summary-value">0%</strong>
+                    </article>
+
+                    <article class="summary-card">
+                        <span class="summary-label">Balance promedio</span>
+                        <strong id="statistics-average-balance" class="summary-value">$0.00</strong>
+                    </article>
+
+                </section>
+
+                <div class="statistics-grid">
+
+                    <article class="section-card statistics-panel">
+
+                        <div class="section-card-header">
+                            <div>
+                                <p class="card-overline">Distribución</p>
+                                <h3>Gastos por categoría</h3>
+                            </div>
+                        </div>
+
+                        <div id="statistics-category-chart" class="statistics-chart"></div>
+
+                    </article>
+
+                    <article class="section-card statistics-panel">
+
+                        <div class="section-card-header">
+                            <div>
+                                <p class="card-overline">Comparación mensual</p>
+                                <h3>Ingresos vs gastos</h3>
+                            </div>
+                        </div>
+
+                        <div id="statistics-monthly-chart" class="statistics-chart"></div>
+
+                    </article>
+
+                    <article class="section-card statistics-panel">
+
+                        <div class="section-card-header">
+                            <div>
+                                <p class="card-overline">Crédito</p>
+                                <h3>Uso de tarjetas</h3>
+                            </div>
+                        </div>
+
+                        <div id="statistics-card-usage" class="statistics-chart"></div>
+
+                    </article>
+
+                    <article class="section-card statistics-panel">
+
+                        <div class="section-card-header">
+                            <div>
+                                <p class="card-overline">Indicadores</p>
+                                <h3>Hallazgos principales</h3>
+                            </div>
+                        </div>
+
+                        <div id="statistics-insights" class="statistics-insights"></div>
+
+                    </article>
+
+                </div>
+
+                <article class="section-card statistics-panel">
+
+                    <div class="section-card-header">
+                        <div>
+                            <p class="card-overline">Últimos 12 meses</p>
+                            <h3>Evolución financiera</h3>
+                        </div>
+                    </div>
+
+                    <div id="statistics-trend-chart" class="statistics-chart statistics-wide-chart"></div>
+
+                </article>
+
+                <article class="section-card statistics-panel">
+
+                    <div class="section-card-header">
+                        <div>
+                            <p class="card-overline">Movimientos relevantes</p>
+                            <h3>Top 10 gastos</h3>
+                        </div>
+                    </div>
+
+                    <div id="statistics-top-expenses" class="statistics-top-list"></div>
+
+                </article>
+
+            </section>
+
+            <!-- HISTORIAL FINANCIERO -->
+
+            <section
+                id="view-historial"
+                class="app-view"
+                hidden
+            >
+
+                <div class="view-header">
+
+                    <div>
+
+                        <p class="view-eyebrow">
+                            Resumen por mes
+                        </p>
+
+                        <h2>
+                            Historial financiero
+                        </h2>
+
+                        <p class="view-description">
+                            Consulta ingresos, gastos y compromisos programados de cada mes.
+                        </p>
+
+                    </div>
+
+                </div>
+
+                <article class="section-card history-month-selector">
+
+                    <button
+                        id="history-previous-month"
+                        class="secondary-button"
+                        type="button"
+                        aria-label="Mes anterior"
+                    >
+                        ‹
+                    </button>
+
+                    <div>
+
+                        <span class="summary-label">
+                            Mes seleccionado
+                        </span>
+
+                        <strong
+                            id="history-month-label"
+                            class="summary-value"
+                        >
+                            Mes actual
+                        </strong>
+
+                    </div>
+
+                    <button
+                        id="history-next-month"
+                        class="secondary-button"
+                        type="button"
+                        aria-label="Mes siguiente"
+                    >
+                        ›
+                    </button>
+
+                </article>
+
+                <section class="summary-grid">
+
+                    <article class="summary-card income-summary">
+
+                        <span class="summary-label">
+                            Ingresos
+                        </span>
+
+                        <strong
+                            id="history-income"
+                            class="summary-value"
+                        >
+                            $0.00
+                        </strong>
+
+                    </article>
+
+                    <article class="summary-card expense-summary">
+
+                        <span class="summary-label">
+                            Gastos
+                        </span>
+
+                        <strong
+                            id="history-expenses"
+                            class="summary-value"
+                        >
+                            $0.00
+                        </strong>
+
+                    </article>
+
+                    <article class="summary-card commitment-summary">
+
+                        <span class="summary-label">
+                            Planes programados
+                        </span>
+
+                        <strong
+                            id="history-plans"
+                            class="summary-value"
+                        >
+                            $0.00
+                        </strong>
+
+                    </article>
+
+                    <article class="summary-card">
+
+                        <span class="summary-label">
+                            Balance del mes
+                        </span>
+
+                        <strong
+                            id="history-balance"
+                            class="summary-value"
+                        >
+                            $0.00
+                        </strong>
+
+                    </article>
+
+                </section>
+
+                <article class="section-card">
+
+                    <div class="section-card-header">
+
+                        <div>
+
+                            <p class="card-overline">
+                                Comparación
+                            </p>
+
+                            <h2>
+                                Contra el mes anterior
+                            </h2>
+
+                        </div>
+
+                    </div>
+
+                    <div
+                        id="history-comparison"
+                        class="history-comparison-grid"
+                    ></div>
+
+                </article>
+
+                <article class="section-card">
+
+                    <div class="section-card-header">
+
+                        <div>
+
+                            <p class="card-overline">
+                                Distribución
+                            </p>
+
+                            <h2>
+                                Gastos por categoría
+                            </h2>
+
+                        </div>
+
+                    </div>
+
+                    <div
+                        id="history-category-list"
+                        class="history-category-list"
+                    ></div>
+
+                    <p
+                        id="history-category-empty"
+                        class="secondary-text"
+                    >
+                        No hay gastos registrados en este mes.
+                    </p>
+
+                </article>
+
+                <article class="section-card">
+
+                    <div class="section-card-header">
+
+                        <div>
+
+                            <p class="card-overline">
+                                Movimientos
+                            </p>
+
+                            <h2>
+                                Detalle mensual
+                            </h2>
+
+                        </div>
+
+                    </div>
+
+                    <div
+                        id="history-movements"
+                        class="records-list"
+                    ></div>
+
+                    <p
+                        id="history-movements-empty"
+                        class="secondary-text"
+                    >
+                        No hay movimientos registrados en este mes.
+                    </p>
+
+                </article>
+
+                <article class="section-card history-note">
+
+                    <p class="secondary-text">
+                        El historial usa las fechas de ingresos y gastos. Los planes muestran la mensualidad programada según su fecha inicial. Las tarjetas no guardan movimientos históricos; por eso su saldo actual no se agrega a meses anteriores.
+                    </p>
+
+                </article>
+
+            </section>
+
+
+
 <section
     id="view-ingresos"
     class="app-view"
@@ -1094,12 +2331,30 @@
     </div>
 
 <script src="js/storage.js"></script>
+
 <script src="js/income.js"></script>
 <script src="js/income-ui.js"></script>
+
 <script src="js/expense.js"></script>
 <script src="js/expense-ui.js"></script>
+
+<script src="js/cards.js"></script>
+<script src="js/cards-ui.js"></script>
+
+<script src="js/plans.js"></script>
+
+<script src="js/manager-bridge.js"></script>
+
+<script src="js/calendar.js"></script>
+<script src="js/calendar-ui.js"></script>
+
+    <script src="js/goals.js"></script>
+    <script src="js/goals-ui.js"></script>
+
 <script src="js/dashboard.js"></script>
+
 <script src="js/app.js"></script>
+<script src="js/navigation-self-check.js"></script>
 
 </body>
 </html>

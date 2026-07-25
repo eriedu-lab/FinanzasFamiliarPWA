@@ -13,10 +13,44 @@ const IncomeManager = {
 
     initialize() {
 
-        const savedIncomes =
+        let savedIncomes =
             Storage.load(
-                StorageKeys.incomes
+                StorageKeys.INCOMES
             );
+
+        /*
+            Migración de versiones anteriores:
+            antes se utilizaba StorageKeys.incomes,
+            que generaba la clave "undefined".
+        */
+        if (
+            !Array.isArray(savedIncomes) ||
+            savedIncomes.length === 0
+        ) {
+
+            const legacyIncomes =
+                Storage.load(
+                    "undefined"
+                );
+
+            if (
+                Array.isArray(
+                    legacyIncomes
+                ) &&
+                legacyIncomes.length > 0
+            ) {
+
+                savedIncomes =
+                    legacyIncomes;
+
+                Storage.save(
+                    StorageKeys.INCOMES,
+                    legacyIncomes
+                );
+
+            }
+
+        }
 
         this.incomes =
             Array.isArray(savedIncomes)
@@ -275,7 +309,7 @@ const IncomeManager = {
     save() {
 
         Storage.save(
-            StorageKeys.incomes,
+            StorageKeys.INCOMES,
             this.incomes
         );
 

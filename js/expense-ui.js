@@ -373,6 +373,7 @@ const ExpenseUI = {
 
         this.closeForm();
         this.render();
+        this.refreshRelatedModules();
 
     },
 
@@ -453,6 +454,33 @@ const ExpenseUI = {
         );
 
         this.render();
+        this.refreshRelatedModules();
+
+    },
+
+    refreshRelatedModules() {
+
+        if (
+            typeof BudgetUI !==
+            "undefined" &&
+            typeof BudgetUI.render ===
+            "function"
+        ) {
+
+            BudgetUI.render();
+
+        }
+
+        if (
+            typeof Dashboard !==
+            "undefined" &&
+            typeof Dashboard.render ===
+            "function"
+        ) {
+
+            Dashboard.render();
+
+        }
 
     },
 
