@@ -1149,6 +1149,36 @@
                     <button
                         class="menu-item"
                         type="button"
+                        data-navigation="reportes"
+                        data-title="Centro premium"
+                        data-subtitle="Reportes, búsqueda y exportaciones"
+                    >
+
+                        <span class="menu-item-icon green">
+                            📄
+                        </span>
+
+                        <span class="menu-item-content">
+
+                            <strong>
+                                Centro premium
+                            </strong>
+
+                            <small>
+                                Reportes, búsqueda y exportaciones
+                            </small>
+
+                        </span>
+
+                        <span class="menu-chevron">
+                            ›
+                        </span>
+
+                    </button>
+
+                    <button
+                        class="menu-item"
+                        type="button"
                         data-navigation="estadisticas"
                         data-title="Estadísticas"
                         data-subtitle="Analiza la evolución de tus finanzas"
@@ -1291,7 +1321,327 @@
 
             </section>
 
-            <!-- METAS DE AHORRO -->
+
+            <!-- CENTRO PREMIUM -->
+
+            <section
+                id="view-reportes"
+                class="app-view"
+                hidden
+            >
+
+                <div class="view-header">
+
+                    <div>
+
+                        <p class="view-eyebrow">
+                            Funciones premium
+                        </p>
+
+                        <h2>
+                            Centro de reportes
+                        </h2>
+
+                        <p class="view-description">
+                            Analiza, busca, filtra y exporta tus movimientos financieros.
+                        </p>
+
+                    </div>
+
+                    <button
+                        id="premium-print-report"
+                        class="primary-button"
+                        type="button"
+                    >
+                        Imprimir / PDF
+                    </button>
+
+                </div>
+
+                <section class="premium-control-panel section-card">
+
+                    <div class="premium-filter-grid">
+
+                        <label class="premium-field">
+                            <span>Periodo</span>
+
+                            <select id="premium-period-type">
+                                <option value="month">
+                                    Mensual
+                                </option>
+                                <option value="year">
+                                    Anual
+                                </option>
+                                <option value="all">
+                                    Todo el historial
+                                </option>
+                            </select>
+                        </label>
+
+                        <label class="premium-field" id="premium-month-field">
+                            <span>Mes</span>
+
+                            <input
+                                id="premium-month"
+                                type="month"
+                            >
+                        </label>
+
+                        <label class="premium-field" id="premium-year-field" hidden>
+                            <span>Año</span>
+
+                            <select id="premium-year"></select>
+                        </label>
+
+                        <label class="premium-field">
+                            <span>Tipo</span>
+
+                            <select id="premium-type">
+                                <option value="all">
+                                    Todos
+                                </option>
+                                <option value="income">
+                                    Ingresos
+                                </option>
+                                <option value="expense">
+                                    Gastos
+                                </option>
+                                <option value="card">
+                                    Movimientos de tarjeta
+                                </option>
+                                <option value="plan">
+                                    Planes de pago
+                                </option>
+                            </select>
+                        </label>
+
+                        <label class="premium-field">
+                            <span>Categoría</span>
+
+                            <select id="premium-category">
+                                <option value="all">
+                                    Todas
+                                </option>
+                            </select>
+                        </label>
+
+                        <label class="premium-field">
+                            <span>Monto mínimo</span>
+
+                            <input
+                                id="premium-min-amount"
+                                type="number"
+                                min="0"
+                                step="0.01"
+                                placeholder="0"
+                            >
+                        </label>
+
+                        <label class="premium-field">
+                            <span>Monto máximo</span>
+
+                            <input
+                                id="premium-max-amount"
+                                type="number"
+                                min="0"
+                                step="0.01"
+                                placeholder="Sin límite"
+                            >
+                        </label>
+
+                    </div>
+
+                    <label class="premium-search-field">
+
+                        <span class="premium-search-icon">
+                            🔎
+                        </span>
+
+                        <input
+                            id="premium-search"
+                            type="search"
+                            placeholder="Buscar nombre, categoría, tarjeta, tipo o monto..."
+                            autocomplete="off"
+                        >
+
+                        <button
+                            id="premium-clear-search"
+                            class="text-button"
+                            type="button"
+                        >
+                            Limpiar
+                        </button>
+
+                    </label>
+
+                </section>
+
+                <section class="summary-grid premium-summary-grid">
+
+                    <article class="summary-card income-summary">
+                        <span class="summary-label">
+                            Ingresos
+                        </span>
+                        <strong
+                            id="premium-total-income"
+                            class="summary-value"
+                        >
+                            $0.00
+                        </strong>
+                    </article>
+
+                    <article class="summary-card expense-summary">
+                        <span class="summary-label">
+                            Gastos
+                        </span>
+                        <strong
+                            id="premium-total-expense"
+                            class="summary-value"
+                        >
+                            $0.00
+                        </strong>
+                    </article>
+
+                    <article class="summary-card card-summary">
+                        <span class="summary-label">
+                            Tarjetas y planes
+                        </span>
+                        <strong
+                            id="premium-total-commitments"
+                            class="summary-value"
+                        >
+                            $0.00
+                        </strong>
+                    </article>
+
+                    <article class="summary-card">
+                        <span class="summary-label">
+                            Balance del periodo
+                        </span>
+                        <strong
+                            id="premium-total-balance"
+                            class="summary-value"
+                        >
+                            $0.00
+                        </strong>
+                    </article>
+
+                </section>
+
+                <section class="premium-insights-grid">
+
+                    <article class="section-card premium-insight-card">
+                        <p class="card-overline">
+                            Mayor gasto
+                        </p>
+                        <strong id="premium-largest-expense">
+                            Sin datos
+                        </strong>
+                        <p id="premium-largest-expense-detail" class="secondary-text">
+                            Agrega movimientos para obtener este análisis.
+                        </p>
+                    </article>
+
+                    <article class="section-card premium-insight-card">
+                        <p class="card-overline">
+                            Categoría principal
+                        </p>
+                        <strong id="premium-top-category">
+                            Sin datos
+                        </strong>
+                        <p id="premium-top-category-detail" class="secondary-text">
+                            El análisis se actualizará automáticamente.
+                        </p>
+                    </article>
+
+                    <article class="section-card premium-insight-card">
+                        <p class="card-overline">
+                            Movimientos encontrados
+                        </p>
+                        <strong id="premium-result-count">
+                            0
+                        </strong>
+                        <p class="secondary-text">
+                            Resultados después de aplicar los filtros.
+                        </p>
+                    </article>
+
+                </section>
+
+                <div class="premium-actions-row">
+
+                    <button
+                        id="premium-export-csv"
+                        class="secondary-button"
+                        type="button"
+                    >
+                        Exportar CSV
+                    </button>
+
+                    <button
+                        id="premium-export-summary-csv"
+                        class="secondary-button"
+                        type="button"
+                    >
+                        CSV resumido
+                    </button>
+
+                    <button
+                        id="premium-copy-summary"
+                        class="secondary-button"
+                        type="button"
+                    >
+                        Copiar resumen
+                    </button>
+
+                </div>
+
+                <section class="section-card premium-results-card">
+
+                    <div class="section-card-header">
+
+                        <div>
+                            <p class="card-overline">
+                                Búsqueda global
+                            </p>
+                            <h2>
+                                Movimientos
+                            </h2>
+                        </div>
+
+                        <span id="premium-active-period" class="premium-period-badge">
+                            Mes actual
+                        </span>
+
+                    </div>
+
+                    <div
+                        id="premium-empty-state"
+                        class="empty-state compact"
+                    >
+                        <div class="empty-state-icon">
+                            🔎
+                        </div>
+
+                        <h3>
+                            No se encontraron movimientos
+                        </h3>
+
+                        <p>
+                            Cambia los filtros o registra nuevos movimientos.
+                        </p>
+                    </div>
+
+                    <div
+                        id="premium-results-list"
+                        class="premium-results-list"
+                    ></div>
+
+                </section>
+
+            </section>
+
+                        <!-- METAS DE AHORRO -->
 
             <section
                 id="view-metas"

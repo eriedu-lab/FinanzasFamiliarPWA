@@ -89,7 +89,8 @@ function showView(
         viewName === "calendario" ||
         viewName === "metas" ||
         viewName === "historial" ||
-        viewName === "estadisticas"
+        viewName === "estadisticas" ||
+        viewName === "reportes"
     ) {
 
         document
@@ -147,6 +148,17 @@ function showView(
     ) {
 
         window.StatisticsUI.render();
+
+    }
+
+    if (
+        viewName === "reportes" &&
+        window.PremiumReportsUI &&
+        typeof window.PremiumReportsUI.render ===
+            "function"
+    ) {
+
+        window.PremiumReportsUI.render();
 
     }
 
@@ -377,6 +389,29 @@ async function loadProfessionalUIModule() {
 
 }
 
+async function loadPremiumReportsModule() {
+
+    try {
+
+        await loadApplicationScript(
+            "js/reports.js"
+        );
+
+        await loadApplicationScript(
+            "js/reports-ui.js"
+        );
+
+    } catch (error) {
+
+        console.error(
+            "No se pudo iniciar el centro premium.",
+            error
+        );
+
+    }
+
+}
+
 async function loadStatisticsModule() {
 
     try {
@@ -457,6 +492,7 @@ document.addEventListener(
                 loadHistoryModule(),
                 loadCardTransactionsModule(),
                 loadStatisticsModule(),
+                loadPremiumReportsModule(),
                 loadProfessionalUIModule()
             ]
         );

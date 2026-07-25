@@ -124,11 +124,11 @@ const ProfessionalUI = {
         if (
             version &&
             version.textContent.trim() !==
-                "Finanzas Familiar · Versión 2.1 Build 2"
+                "Finanzas Familiar · Versión 2.2"
         ) {
 
             version.textContent =
-                "Finanzas Familiar · Versión 2.1 Build 2";
+                "Finanzas Familiar · Versión 2.2";
 
         }
 
