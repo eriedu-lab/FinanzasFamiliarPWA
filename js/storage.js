@@ -54,12 +54,15 @@ const Storage = {
     save(key, value) {
 
         localStorage.setItem(
-
             key,
-
             JSON.stringify(value)
-
         );
+
+        queueMicrotask(() => {
+            document.dispatchEvent(new CustomEvent("finance-data-changed", {
+                detail: { key }
+            }));
+        });
 
     },
 

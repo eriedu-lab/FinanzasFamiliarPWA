@@ -1,0 +1,15 @@
+FINANZAS FAMILIAR PWA — ACTUALIZACIÓN 5.0
+
+1. Conserva tu carpeta actual FinanzasFamiliarPWA-RESPALDO, porque contiene .git.
+2. Copia y reemplaza dentro de ella: index.html, VERSION.txt, manifest.webmanifest, service-worker.js y las carpetas css, js e icons.
+3. Desde Terminal entra a la carpeta:
+   cd ~/Desktop/FinanzasFamiliarPWA-RESPALDO
+4. Ejecuta:
+   git add .
+   git commit -m "Version 5.0 correcciones moviles y planes ligados a tarjetas"
+   git push origin main
+5. Espera 2 a 5 minutos a GitHub Pages.
+6. En iPhone abre Safari y visita:
+   https://eriedu-lab.github.io/FinanzasFamiliarPWA/
+7. Recarga la página. Si sigue mostrando la versión anterior, cierra la PWA, vuelve a Safari, recarga dos veces y abre otra vez desde el icono.
+8. No elimines los datos de Safari: ahí se guarda la información local de la app.

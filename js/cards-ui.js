@@ -432,7 +432,7 @@ const CardsUI = {
                                 data-edit-card-id="${card.id}"
                                 aria-label="Editar tarjeta"
                             >
-                                Editar
+                                <span aria-hidden="true">✎</span><span>Editar</span>
                             </button>
 
                             <button
@@ -441,7 +441,7 @@ const CardsUI = {
                                 data-delete-card-id="${card.id}"
                                 aria-label="Eliminar tarjeta"
                             >
-                                ×
+                                <span aria-hidden="true">⌫</span>
                             </button>
 
                         </div>

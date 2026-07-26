@@ -40,6 +40,9 @@ const PaymentPlanManager = {
                                     plan.description || ""
                                 ),
 
+                            cardId:
+                                String(plan.cardId || ""),
+
                             cardName:
                                 String(
                                     plan.cardName || ""
@@ -133,6 +136,9 @@ const PaymentPlanManager = {
                     data.description
                 ).trim(),
 
+            cardId:
+                String(data.cardId || ""),
+
             cardName:
                 String(
                     data.cardName
@@ -165,10 +171,8 @@ const PaymentPlanManager = {
 
         };
 
-        this.plans.push(
-            newPlan
-        );
-
+        this.plans.push(newPlan);
+        this.syncLinkedCardUsage(null, newPlan);
         this.save();
 
         return {
@@ -229,6 +233,9 @@ const PaymentPlanManager = {
                     data.description
                 ).trim(),
 
+            cardId:
+                String(data.cardId || ""),
+
             cardName:
                 String(
                     data.cardName
@@ -261,10 +268,9 @@ const PaymentPlanManager = {
 
         };
 
-        this.plans[
-            planIndex
-        ] = updatedPlan;
-
+        const previousPlan = this.plans[planIndex];
+        this.plans[planIndex] = updatedPlan;
+        this.syncLinkedCardUsage(previousPlan, updatedPlan);
         this.save();
 
         return {
@@ -279,8 +285,8 @@ const PaymentPlanManager = {
 
     deletePlan(planId) {
 
-        const originalLength =
-            this.plans.length;
+        const removedPlan = this.getById(planId);
+        const originalLength = this.plans.length;
 
         this.plans =
             this.plans.filter(
@@ -305,14 +311,35 @@ const PaymentPlanManager = {
 
         }
 
+        this.syncLinkedCardUsage(removedPlan, null);
         this.save();
 
-        return {
+        return { success: true };
 
-            success: true
+    },
 
+    syncLinkedCardUsage(previousPlan, nextPlan) {
+        if (typeof CardManager === "undefined") return;
+
+        const previousCardId = previousPlan?.cardId || "";
+        const nextCardId = nextPlan?.cardId || "";
+        const previousBalance = previousPlan ? this.getRemainingBalance(previousPlan) : 0;
+        const nextBalance = nextPlan ? this.getRemainingBalance(nextPlan) : 0;
+
+        const adjust = (cardId, delta) => {
+            if (!cardId || !delta) return;
+            const card = CardManager.getById(cardId);
+            if (!card) return;
+            card.used = Math.max(0, Number(card.used || 0) + delta);
         };
 
+        if (previousCardId === nextCardId) {
+            adjust(nextCardId, nextBalance - previousBalance);
+        } else {
+            adjust(previousCardId, -previousBalance);
+            adjust(nextCardId, nextBalance);
+        }
+        CardManager.save();
     },
 
     getMonthlyPayment(plan) {
@@ -504,8 +531,9 @@ const PaymentPlanManager = {
 
         }
 
+        const previousPlan = { ...plan };
         plan.paidInstallments += 1;
-
+        this.syncLinkedCardUsage(previousPlan, plan);
         this.save();
 
         return {
@@ -553,8 +581,9 @@ const PaymentPlanManager = {
 
         }
 
+        const previousPlan = { ...plan };
         plan.paidInstallments -= 1;
-
+        this.syncLinkedCardUsage(previousPlan, plan);
         this.save();
 
         return {
@@ -591,10 +620,8 @@ const PaymentPlanManager = {
                 data.description || ""
             ).trim();
 
-        const cardName =
-            String(
-                data.cardName || ""
-            ).trim();
+        const cardId = String(data.cardId || "").trim();
+        const cardName = String(data.cardName || "").trim();
 
         const totalAmount =
             Number(
@@ -624,7 +651,7 @@ const PaymentPlanManager = {
 
         }
 
-        if (!cardName) {
+        if (!cardId || !cardName) {
 
             return {
 

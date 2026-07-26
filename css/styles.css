@@ -2791,3 +2791,66 @@ body.is-offline::before {
 @media (prefers-reduced-motion: reduce) {
     *, *::before, *::after { scroll-behavior: auto !important; animation-duration: .01ms !important; transition-duration: .01ms !important; }
 }
+
+
+/* =====================================
+   FINANZAS FAMILIAR 5.0 — CORRECCIONES MÓVILES
+===================================== */
+html, body { min-height: 100%; overflow-x: hidden; }
+body { padding-bottom: calc(112px + env(safe-area-inset-bottom)); }
+.app-shell, main, .main-content, .app-view { min-width: 0; max-width: 100%; }
+
+.modal-overlay {
+    align-items: flex-start;
+    padding: max(12px, env(safe-area-inset-top)) 12px calc(110px + env(safe-area-inset-bottom));
+    overscroll-behavior: contain;
+    -webkit-overflow-scrolling: touch;
+}
+.modal-card {
+    width: min(100%, 560px);
+    max-height: none;
+    margin: 8px auto 24px;
+    padding: 20px;
+    overflow: visible;
+}
+.modal-header { position: sticky; top: -20px; z-index: 4; padding: 14px 0 12px; background: #fff; }
+#plan-form { padding-bottom: 22px; }
+.form-group select { appearance: auto; -webkit-appearance: menulist; }
+.field-help { display:block; color:#64748b; line-height:1.4; font-size:12px; }
+
+.record-card-actions { display:flex; align-items:center; gap:8px; flex-wrap:wrap; }
+.edit-record-button, .delete-record-button {
+    display:inline-flex; align-items:center; justify-content:center; gap:6px;
+    min-height:40px; border:0; border-radius:12px; font:inherit; font-weight:750; cursor:pointer;
+}
+.edit-record-button { padding:8px 13px; background:#eef2ff; color:#3730a3; }
+.delete-record-button { width:40px; padding:0; background:#fff1f2; color:#be123c; font-size:17px; }
+
+.calendar-controls { display:grid !important; grid-template-columns:44px minmax(0,1fr) 44px; align-items:center; gap:10px; }
+.calendar-month-title { margin:0; text-align:center; white-space:nowrap; font-size:clamp(20px,6vw,28px); }
+.calendar-weekdays, .calendar-grid {
+    display:grid !important; grid-template-columns:repeat(7,minmax(0,1fr)) !important;
+    width:100%; gap:4px; box-sizing:border-box;
+}
+.calendar-weekdays { margin-top:14px; }
+.calendar-weekday { min-width:0; text-align:center; font-size:11px; font-weight:800; color:#64748b; overflow:hidden; }
+.calendar-day {
+    min-width:0 !important; width:100%; aspect-ratio:1/1; min-height:38px; padding:2px !important;
+    display:flex; flex-direction:column; align-items:center; justify-content:center;
+    border:0; border-radius:10px; background:#f1f5f9; color:#111827; font:inherit;
+}
+.calendar-day-empty { background:transparent; }
+.calendar-day-number { font-size:13px; line-height:1; }
+.calendar-event-indicators { display:flex; gap:2px; margin-top:4px; }
+.calendar-event-indicator { width:4px; height:4px; border-radius:50%; }
+.calendar-day-selected { background:#2563eb !important; color:#fff !important; }
+.calendar-day-today { box-shadow: inset 0 0 0 2px #2563eb; }
+
+@media (max-width:680px) {
+    .modal-overlay { display:block; }
+    .modal-card { border-radius:22px; }
+    .form-grid { grid-template-columns:1fr !important; }
+    .financial-calendar-card, .calendar-events-card { padding:16px !important; }
+    .calendar-view-header { gap:12px; }
+    .bottom-navigation { z-index:1200; }
+}

@@ -265,14 +265,17 @@ const PaymentPlansUI = {
                                 Tarjeta utilizada
                             </label>
 
-                            <input
+                            <select
                                 id="plan-card-name"
                                 name="card-name"
-                                type="text"
-                                placeholder="Ejemplo: BBVA Azul"
-                                autocomplete="off"
                                 required
                             >
+                                <option value="">Selecciona una tarjeta</option>
+                            </select>
+
+                            <small class="field-help">
+                                El plan se ligará a la tarjeta seleccionada y actualizará su crédito utilizado y disponible.
+                            </small>
 
                         </div>
 
@@ -728,9 +731,50 @@ const PaymentPlansUI = {
 
     },
 
+    findCardIdByName(cardName) {
+        if (typeof CardManager === "undefined") return "";
+        const match = CardManager.getAll().find(card => card.name === cardName);
+        return match?.id || "";
+    },
+
+    populateCardOptions(plan = null) {
+
+        const select = this.elements.cardNameInput;
+        if (!select) return;
+
+        const cards = (typeof CardManager !== "undefined")
+            ? CardManager.getAll()
+            : [];
+
+        const selectedValue = plan?.cardId || "";
+        const legacyName = plan?.cardName || "";
+
+        select.innerHTML = '<option value="">Selecciona una tarjeta</option>';
+
+        cards.forEach(card => {
+            const option = document.createElement("option");
+            option.value = card.id;
+            option.textContent = `${card.name}${card.bank ? " · " + card.bank : ""}`;
+            if (card.id === selectedValue || (!selectedValue && card.name === legacyName)) {
+                option.selected = true;
+            }
+            select.appendChild(option);
+        });
+
+        if (!cards.length) {
+            const option = document.createElement("option");
+            option.value = "";
+            option.textContent = "Primero agrega una tarjeta";
+            option.disabled = true;
+            select.appendChild(option);
+        }
+
+    },
+
     openForm(plan = null) {
 
         this.clearMessage();
+        this.populateCardOptions(plan);
 
         this.editingPlanId =
             plan ? plan.id : null;
@@ -744,7 +788,7 @@ const PaymentPlansUI = {
                 plan.description;
 
             this.elements.cardNameInput.value =
-                plan.cardName;
+                plan.cardId || this.findCardIdByName(plan.cardName) || "";
 
             this.elements.totalAmountInput.value =
                 plan.totalAmount;
@@ -815,8 +859,13 @@ const PaymentPlansUI = {
             description:
                 this.elements.descriptionInput.value,
 
-            cardName:
+            cardId:
                 this.elements.cardNameInput.value,
+
+            cardName:
+                (typeof CardManager !== "undefined"
+                    ? CardManager.getById(this.elements.cardNameInput.value)?.name
+                    : "") || "",
 
             totalAmount:
                 this.elements.totalAmountInput.value,
@@ -983,7 +1032,7 @@ const PaymentPlansUI = {
                                 type="button"
                                 data-edit-plan-id="${plan.id}"
                             >
-                                Editar
+                                <span aria-hidden="true">✎</span><span>Editar</span>
                             </button>
 
                             <button
@@ -992,7 +1041,7 @@ const PaymentPlansUI = {
                                 data-delete-plan-id="${plan.id}"
                                 aria-label="Eliminar plan"
                             >
-                                ×
+                                <span aria-hidden="true">⌫</span>
                             </button>
 
                         </div>
@@ -1252,16 +1301,16 @@ const PaymentPlansUI = {
 
     refreshDashboard() {
 
-        if (
-            typeof Dashboard !==
-            "undefined" &&
-            typeof Dashboard.render ===
-            "function"
-        ) {
-
+        if (typeof Dashboard !== "undefined" && typeof Dashboard.render === "function") {
             Dashboard.render();
-
         }
+        if (typeof CardsUI !== "undefined" && typeof CardsUI.render === "function") {
+            CardsUI.render();
+        }
+        if (window.FinancialCalendarUI && typeof window.FinancialCalendarUI.renderCalendar === "function") {
+            window.FinancialCalendarUI.renderCalendar();
+        }
+        document.dispatchEvent(new CustomEvent("finance-data-changed"));
 
     },
 

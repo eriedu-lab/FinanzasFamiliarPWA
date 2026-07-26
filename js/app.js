@@ -162,6 +162,24 @@ function showView(
 
     }
 
+
+    const viewRenderers = {
+        inicio: () => (typeof Dashboard !== "undefined" && Dashboard.render?.()),
+        ingresos: () => (typeof IncomeUI !== "undefined" && IncomeUI.render?.()),
+        gastos: () => (typeof ExpenseUI !== "undefined" && ExpenseUI.render?.()),
+        tarjetas: () => (typeof CardsUI !== "undefined" && CardsUI.render?.()),
+        planes: () => (typeof PaymentPlansUI !== "undefined" && PaymentPlansUI.render?.()),
+        calendario: () => (window.FinancialCalendarUI?.renderCalendar?.()),
+        estadisticas: () => (typeof StatisticsUI !== "undefined" && StatisticsUI.render?.()),
+        reportes: () => (typeof PremiumReportsUI !== "undefined" && PremiumReportsUI.render?.())
+    };
+
+    try {
+        viewRenderers[viewName]?.();
+    } catch (error) {
+        console.error("No fue posible actualizar la vista", viewName, error);
+    }
+
     window.scrollTo(
         {
             top: 0,
