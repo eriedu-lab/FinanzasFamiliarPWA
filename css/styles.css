@@ -2901,3 +2901,31 @@ html[data-finance-theme="dark"] .modal-card { background:#1c1c1e!important; colo
   .record-card-header { align-items:flex-start; gap:10px; }
   .record-card-actions { justify-content:flex-start; }
 }
+
+
+/* Versión 6.1: acceso y visualización de planes */
+.interactive-summary-card {
+    cursor: pointer;
+    transition: transform .18s ease, box-shadow .18s ease;
+}
+.interactive-summary-card:active {
+    transform: scale(.985);
+}
+.interactive-summary-card:focus-visible {
+    outline: 3px solid rgba(10, 132, 255, .35);
+    outline-offset: 3px;
+}
+#plans-list {
+    scroll-margin-top: 150px;
+    padding-bottom: calc(var(--navigation-height) + env(safe-area-inset-bottom) + 24px);
+}
+.plan-card-group > summary::after {
+    content: "⌄";
+    flex: 0 0 auto;
+    color: var(--text-secondary);
+    font-size: 22px;
+    transition: transform .18s ease;
+}
+.plan-card-group[open] > summary::after {
+    transform: rotate(180deg);
+}

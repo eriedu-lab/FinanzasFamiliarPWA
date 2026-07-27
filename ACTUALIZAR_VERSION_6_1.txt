@@ -1,0 +1,8 @@
+FINANZAS FAMILIAR PWA - VERSION 6.1
+
+Correcciones:
+- Los planes de pago vuelven a mostrarse agrupados por tarjeta.
+- Se corrigió el error de formato de fecha que detenía el renderizado de la lista.
+- La tarjeta "Planes activos" ahora abre todos los grupos y desplaza la pantalla hacia la lista.
+- Se añadió un indicador visual para abrir y cerrar cada grupo.
+- Caché PWA actualizada a 6.1.0.

@@ -607,6 +607,68 @@ const PaymentPlansUI = {
             }
         );
 
+        const activePlansCard =
+            this.elements.activeTotal
+                ?.closest(".summary-card");
+
+        if (activePlansCard) {
+
+            activePlansCard.classList.add(
+                "interactive-summary-card"
+            );
+
+            activePlansCard.setAttribute(
+                "role",
+                "button"
+            );
+
+            activePlansCard.setAttribute(
+                "tabindex",
+                "0"
+            );
+
+            const revealPlans = () => {
+
+                const groups =
+                    this.elements.list
+                        ?.querySelectorAll(
+                            ".plan-card-group"
+                        );
+
+                groups?.forEach(
+                    group => {
+                        group.open = true;
+                    }
+                );
+
+                this.elements.list
+                    ?.scrollIntoView({
+                        behavior: "smooth",
+                        block: "start"
+                    });
+
+            };
+
+            activePlansCard.addEventListener(
+                "click",
+                revealPlans
+            );
+
+            activePlansCard.addEventListener(
+                "keydown",
+                event => {
+                    if (
+                        event.key === "Enter" ||
+                        event.key === " "
+                    ) {
+                        event.preventDefault();
+                        revealPlans();
+                    }
+                }
+            );
+
+        }
+
         const commitmentsButton =
             this.findCommitmentsButton();
 
@@ -1101,6 +1163,48 @@ const PaymentPlansUI = {
 
         this.elements.message.hidden =
             true;
+
+    },
+
+    formatDate(dateValue) {
+
+        if (!dateValue) {
+
+            return "Pendiente de calcular";
+
+        }
+
+        const parts =
+            String(dateValue)
+                .split("-")
+                .map(Number);
+
+        if (
+            parts.length !== 3 ||
+            parts.some(
+                value => !Number.isFinite(value)
+            )
+        ) {
+
+            return String(dateValue);
+
+        }
+
+        const date =
+            new Date(
+                parts[0],
+                parts[1] - 1,
+                parts[2]
+            );
+
+        return new Intl.DateTimeFormat(
+            "es-MX",
+            {
+                day: "2-digit",
+                month: "short",
+                year: "numeric"
+            }
+        ).format(date);
 
     },
 
