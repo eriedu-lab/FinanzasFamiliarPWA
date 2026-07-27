@@ -31,7 +31,8 @@ const ExpenseManager = {
         amount,
         date,
         category,
-        type
+        type,
+        recurring = {}
     ) {
 
         const cleanName =
@@ -103,6 +104,21 @@ const ExpenseManager = {
 
             type:
                 cleanType,
+
+            startDate:
+                cleanType === "Fijo"
+                    ? String(recurring.startDate || cleanDate)
+                    : "",
+
+            hasEndDate:
+                cleanType === "Fijo"
+                    ? Boolean(recurring.hasEndDate)
+                    : false,
+
+            endDate:
+                cleanType === "Fijo" && recurring.hasEndDate
+                    ? String(recurring.endDate || "")
+                    : "",
 
             createdAt:
                 new Date().toISOString()
@@ -216,6 +232,16 @@ const ExpenseManager = {
         expense.type =
             cleanType;
 
+        expense.startDate = cleanType === "Fijo"
+            ? String(values.startDate || cleanDate)
+            : "";
+        expense.hasEndDate = cleanType === "Fijo"
+            ? Boolean(values.hasEndDate)
+            : false;
+        expense.endDate = cleanType === "Fijo" && values.hasEndDate
+            ? String(values.endDate || "")
+            : "";
+
         this.save();
 
         return {
@@ -297,6 +323,25 @@ const ExpenseManager = {
             0
         );
 
+    },
+
+    isActiveInMonth(expense, monthKey) {
+        const key = String(monthKey || "").slice(0, 7);
+        if (!key) return false;
+        if (String(expense.type || "") !== "Fijo") {
+            return String(expense.date || "").slice(0, 7) === key;
+        }
+        const start = String(expense.startDate || expense.date || "").slice(0, 7);
+        const end = expense.hasEndDate ? String(expense.endDate || "").slice(0, 7) : "";
+        return (!start || key >= start) && (!end || key <= end);
+    },
+
+    getByMonth(monthKey) {
+        return this.expenses.filter(expense => this.isActiveInMonth(expense, monthKey));
+    },
+
+    getTotalByMonth(monthKey) {
+        return this.getByMonth(monthKey).reduce((sum, expense) => sum + Number(expense.amount || 0), 0);
     },
 
     save() {

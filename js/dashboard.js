@@ -311,99 +311,33 @@ const Dashboard = {
     },
 
     render() {
-
-        const totalIncome =
-            typeof IncomeManager !==
-            "undefined"
-                ? IncomeManager.getTotal()
-                : 0;
-
-        const totalExpenses =
-            typeof ExpenseManager !==
-            "undefined"
-                ? ExpenseManager.getTotal()
-                : 0;
-
-        const totalCards =
-            typeof CardManager !==
-            "undefined"
-                ? CardManager.getTotalUsed()
-                : 0;
-
-        const totalPaymentPlans =
-            typeof PaymentPlanManager !==
-            "undefined"
-                ? PaymentPlanManager
-                    .getTotalMonthlyPayments()
-                : 0;
-
-        const totalCommitments =
-            totalCards +
-            totalPaymentPlans;
-
-        const balance =
-            totalIncome -
-            totalExpenses -
-            totalCommitments;
-
-        this.elements.income.textContent =
-            this.formatCurrency(
-                totalIncome
-            );
-
-        this.elements.expenses.textContent =
-            this.formatCurrency(
-                totalExpenses
-            );
-
-        if (this.elements.commitments) {
-
-            this.elements.commitments
-                .textContent =
-                    this.formatCurrency(
-                        totalPaymentPlans
-                    );
-
-        }
-
-        this.elements.cards.textContent =
-            this.formatCurrency(
-                totalCards
-            );
-
-        this.elements.balance.textContent =
-            this.formatCurrency(
-                balance
-            );
-
-        this.renderBalanceStatus(
-            balance
-        );
-
-        this.renderBudget();
-        this.renderGoals();
-
-        this.renderHealth(
-            totalIncome,
-            totalExpenses,
-            totalCards,
-            totalPaymentPlans,
-            totalCommitments,
-            balance
-        );
-
-        if (
-            window.RemindersUI &&
-            typeof window.RemindersUI
-                .render ===
-                "function"
-        ) {
-
-            window.RemindersUI
-                .render();
-
-        }
-
+        const monthKey = new Date().toISOString().slice(0, 7);
+        const totalIncome = typeof IncomeManager !== "undefined"
+            ? (typeof IncomeManager.getByMonth === "function"
+                ? IncomeManager.getByMonth(monthKey).reduce((sum,item)=>sum+Number(item.amount||0),0)
+                : IncomeManager.getAll().filter(item=>String(item.date||"").slice(0,7)===monthKey).reduce((sum,item)=>sum+Number(item.amount||0),0))
+            : 0;
+        const totalExpenses = typeof ExpenseManager !== "undefined"
+            ? (typeof ExpenseManager.getTotalByMonth === "function" ? ExpenseManager.getTotalByMonth(monthKey) : 0)
+            : 0;
+        const totalPaymentPlans = typeof PaymentPlanManager !== "undefined"
+            ? (typeof PaymentPlanManager.getMonthlyDueForMonth === "function" ? PaymentPlanManager.getMonthlyDueForMonth(monthKey) : PaymentPlanManager.getTotalMonthlyPayments())
+            : 0;
+        const cardPurchases = typeof CardTransactionManager !== "undefined"
+            ? CardTransactionManager.getByMonth(monthKey).filter(t=>["purchase","charge","cargo","compra"].includes(String(t.type||"").toLowerCase())).reduce((sum,t)=>sum+Number(t.amount||0),0)
+            : 0;
+        const totalCards = cardPurchases;
+        const totalCommitments = totalExpenses + totalPaymentPlans + totalCards;
+        const balance = totalIncome - totalCommitments;
+        this.elements.income.textContent = this.formatCurrency(totalIncome);
+        this.elements.expenses.textContent = this.formatCurrency(totalExpenses);
+        if (this.elements.commitments) this.elements.commitments.textContent = this.formatCurrency(totalPaymentPlans);
+        this.elements.cards.textContent = this.formatCurrency(totalCards);
+        this.elements.balance.textContent = this.formatCurrency(balance);
+        this.renderBalanceStatus(balance);
+        this.renderBudget(); this.renderGoals();
+        this.renderHealth(totalIncome,totalExpenses,totalCards,totalPaymentPlans,totalCommitments,balance);
+        if (window.RemindersUI && typeof window.RemindersUI.render === "function") window.RemindersUI.render();
     },
 
     renderBalanceStatus(balance) {

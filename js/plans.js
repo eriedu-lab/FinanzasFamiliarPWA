@@ -165,8 +165,9 @@ const PaymentPlanManager = {
                 ),
 
             firstPaymentDate:
-                String(
-                    data.firstPaymentDate || ""
+                this.calculateFirstPaymentDate(
+                    data.purchaseDate,
+                    data.cardId
                 )
 
         };
@@ -262,8 +263,9 @@ const PaymentPlanManager = {
                 ),
 
             firstPaymentDate:
-                String(
-                    data.firstPaymentDate || ""
+                this.calculateFirstPaymentDate(
+                    data.purchaseDate,
+                    data.cardId
                 )
 
         };
@@ -594,6 +596,36 @@ const PaymentPlanManager = {
 
         };
 
+    },
+
+    calculateFirstPaymentDate(purchaseDate, cardId) {
+        const card = typeof CardManager !== "undefined" ? CardManager.getById(String(cardId || "")) : null;
+        const parts = String(purchaseDate || "").split("-").map(Number);
+        if (!card || parts.length !== 3 || parts.some(Number.isNaN)) return "";
+        const [year, month, day] = parts;
+        const cutDay = Math.max(1, Math.min(28, Number(card.cutDay || 1)));
+        const dueDay = Math.max(1, Math.min(28, Number(card.dueDay || 1)));
+        let cutYear = year, cutMonth = month - 1;
+        if (day > cutDay) { cutMonth += 1; }
+        const cutDate = new Date(cutYear, cutMonth, cutDay);
+        let dueYear = cutDate.getFullYear();
+        let dueMonth = cutDate.getMonth();
+        if (dueDay <= cutDay) dueMonth += 1;
+        const dueDate = new Date(dueYear, dueMonth, dueDay);
+        const pad = value => String(value).padStart(2, "0");
+        return `${dueDate.getFullYear()}-${pad(dueDate.getMonth()+1)}-${pad(dueDate.getDate())}`;
+    },
+
+    getMonthlyDueForMonth(monthKey) {
+        return this.getActivePlans().reduce((sum, plan) => {
+            const first = String(plan.firstPaymentDate || this.calculateFirstPaymentDate(plan.purchaseDate, plan.cardId));
+            if (!first) return sum;
+            const firstDate = new Date(first + "T12:00:00");
+            const target = new Date(String(monthKey) + "-01T12:00:00");
+            const diff = (target.getFullYear()-firstDate.getFullYear())*12 + target.getMonth()-firstDate.getMonth();
+            if (diff < 0 || diff >= Number(plan.totalInstallments || 0)) return sum;
+            return sum + this.getMonthlyPayment(plan);
+        }, 0);
     },
 
     validatePlan(data) {

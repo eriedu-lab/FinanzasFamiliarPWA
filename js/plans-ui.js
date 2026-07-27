@@ -354,18 +354,10 @@ const PaymentPlansUI = {
 
                             </div>
 
-                            <div class="form-group">
-
-                                <label for="plan-first-payment-date">
-                                    Fecha del primer pago
-                                </label>
-
-                                <input
-                                    id="plan-first-payment-date"
-                                    name="first-payment-date"
-                                    type="date"
-                                >
-
+                            <div class="form-group calculated-payment-note">
+                                <label>Primer pago calculado automáticamente</label>
+                                <p>Se calculará con la fecha de compra, el día de corte y el día de pago de la tarjeta.</p>
+                                <input id="plan-first-payment-date" type="hidden">
                             </div>
 
                         </div>
@@ -965,258 +957,36 @@ const PaymentPlansUI = {
     },
 
     renderPlans(plans) {
-
-        this.elements.list.innerHTML =
-            "";
-
-        plans.forEach(
-            plan => {
-
-                const monthlyPayment =
-                    PaymentPlanManager
-                        .getMonthlyPayment(
-                            plan
-                        );
-
-                const remainingInstallments =
-                    PaymentPlanManager
-                        .getRemainingInstallments(
-                            plan
-                        );
-
-                const remainingBalance =
-                    PaymentPlanManager
-                        .getRemainingBalance(
-                            plan
-                        );
-
-                const completed =
-                    remainingInstallments === 0;
-
-                const progressPercentage =
-                    plan.totalInstallments > 0
-                        ? (
-                            plan.paidInstallments /
-                            plan.totalInstallments
-                        ) * 100
-                        : 0;
-
-                const planElement =
-                    document.createElement(
-                        "article"
-                    );
-
-                planElement.className =
-                    "record-card";
-
-                planElement.innerHTML = `
-
-                    <div class="record-card-header">
-
-                        <div>
-
-                            <p class="record-category">
-                                ${this.escapeHTML(plan.cardName)}
-                            </p>
-
-                            <h3>
-                                ${this.escapeHTML(plan.description)}
-                            </h3>
-
-                        </div>
-
-                        <div class="record-card-actions">
-
-                            <button
-                                class="edit-record-button"
-                                type="button"
-                                data-edit-plan-id="${plan.id}"
-                            >
-                                <span aria-hidden="true">✎</span><span>Editar</span>
-                            </button>
-
-                            <button
-                                class="delete-record-button"
-                                type="button"
-                                data-delete-plan-id="${plan.id}"
-                                aria-label="Eliminar plan"
-                            >
-                                <span aria-hidden="true">⌫</span>
-                            </button>
-
-                        </div>
-
-                    </div>
-
-                    <div class="card-financial-grid">
-
-                        <div>
-
-                            <span>
-                                Pago mensual
-                            </span>
-
-                            <strong>
-                                ${this.formatCurrency(monthlyPayment)}
-                            </strong>
-
-                        </div>
-
-                        <div>
-
-                            <span>
-                                Pagadas
-                            </span>
-
-                            <strong>
-                                ${plan.paidInstallments}
-                                de
-                                ${plan.totalInstallments}
-                            </strong>
-
-                        </div>
-
-                        <div>
-
-                            <span>
-                                Saldo pendiente
-                            </span>
-
-                            <strong>
-                                ${this.formatCurrency(remainingBalance)}
-                            </strong>
-
-                        </div>
-
-                    </div>
-
-                    <div class="progress-track">
-
-                        <div
-                            class="progress-fill"
-                            style="
-                                width:
-                                ${Math.min(
-                                    progressPercentage,
-                                    100
-                                )}%;
-                            "
-                        ></div>
-
-                    </div>
-
-                    <div class="record-card-footer">
-
-                        <span>
-                            ${
-                                completed
-                                    ? "Plan terminado"
-                                    : remainingInstallments +
-                                      " mensualidades pendientes"
-                            }
-                        </span>
-
-                        <div class="record-card-actions">
-
-                            <button
-                                class="secondary-button"
-                                type="button"
-                                data-undo-plan-id="${plan.id}"
-                                ${
-                                    plan.paidInstallments <= 0
-                                        ? "disabled"
-                                        : ""
-                                }
-                            >
-                                Deshacer pago
-                            </button>
-
-                            <button
-                                class="primary-button"
-                                type="button"
-                                data-pay-plan-id="${plan.id}"
-                                ${
-                                    completed
-                                        ? "disabled"
-                                        : ""
-                                }
-                            >
-                                Registrar pago
-                            </button>
-
-                        </div>
-
-                    </div>
-
-                `;
-
-                planElement
-                    .querySelector(
-                        "[data-edit-plan-id]"
-                    )
-                    ?.addEventListener(
-                        "click",
-                        () => {
-
-                            this.openForm(
-                                plan
-                            );
-
-                        }
-                    );
-
-                planElement
-                    .querySelector(
-                        "[data-delete-plan-id]"
-                    )
-                    ?.addEventListener(
-                        "click",
-                        () => {
-
-                            this.deletePlan(
-                                plan.id
-                            );
-
-                        }
-                    );
-
-                planElement
-                    .querySelector(
-                        "[data-pay-plan-id]"
-                    )
-                    ?.addEventListener(
-                        "click",
-                        () => {
-
-                            this.registerPayment(
-                                plan.id
-                            );
-
-                        }
-                    );
-
-                planElement
-                    .querySelector(
-                        "[data-undo-plan-id]"
-                    )
-                    ?.addEventListener(
-                        "click",
-                        () => {
-
-                            this.undoPayment(
-                                plan.id
-                            );
-
-                        }
-                    );
-
-                this.elements.list.appendChild(
-                    planElement
-                );
-
-            }
-        );
-
+        this.elements.list.innerHTML = "";
+        const groups = new Map();
+        plans.forEach(plan => {
+            const key = plan.cardId || plan.cardName || "sin-tarjeta";
+            if (!groups.has(key)) groups.set(key, { name: plan.cardName || "Sin tarjeta", plans: [] });
+            groups.get(key).plans.push(plan);
+        });
+        groups.forEach(group => {
+            const section = document.createElement("details");
+            section.className = "plan-card-group";
+            section.open = true;
+            const remaining = group.plans.reduce((sum,p)=>sum+PaymentPlanManager.getRemainingBalance(p),0);
+            section.innerHTML = `<summary><span><strong>${this.escapeHTML(group.name)}</strong><small>${group.plans.length} plan${group.plans.length===1?"":"es"}</small></span><b>${this.formatCurrency(remaining)}</b></summary><div class="plan-group-content"></div>`;
+            const content = section.querySelector(".plan-group-content");
+            group.plans.forEach(plan => {
+                const monthlyPayment=PaymentPlanManager.getMonthlyPayment(plan);
+                const remainingInstallments=PaymentPlanManager.getRemainingInstallments(plan);
+                const remainingBalance=PaymentPlanManager.getRemainingBalance(plan);
+                const completed=remainingInstallments===0;
+                const progressPercentage=plan.totalInstallments>0?(plan.paidInstallments/plan.totalInstallments)*100:0;
+                const el=document.createElement("article"); el.className="record-card compact-plan-card";
+                el.innerHTML=`<div class="record-card-header"><div><h3>${this.escapeHTML(plan.description)}</h3><p class="record-category">Primer pago: ${this.formatDate(plan.firstPaymentDate || PaymentPlanManager.calculateFirstPaymentDate(plan.purchaseDate,plan.cardId))}</p></div><div class="record-card-actions"><button class="edit-record-button" type="button" data-edit-plan-id="${plan.id}">✎ Editar</button><button class="delete-record-button" type="button" data-delete-plan-id="${plan.id}" aria-label="Eliminar plan">🗑</button></div></div><div class="card-financial-grid"><div><span>Mensualidad</span><strong>${this.formatCurrency(monthlyPayment)}</strong></div><div><span>Pagadas</span><strong>${plan.paidInstallments} de ${plan.totalInstallments}</strong></div><div><span>Pendiente</span><strong>${this.formatCurrency(remainingBalance)}</strong></div></div><div class="progress-track"><div class="progress-fill" style="width:${Math.min(progressPercentage,100)}%"></div></div><div class="record-card-footer"><span>${completed?"Plan terminado":remainingInstallments+" mensualidades pendientes"}</span><div class="record-card-actions"><button class="secondary-button" type="button" data-undo-plan-id="${plan.id}" ${plan.paidInstallments<=0?"disabled":""}>Deshacer</button><button class="primary-button" type="button" data-pay-plan-id="${plan.id}" ${completed?"disabled":""}>Registrar pago</button></div></div>`;
+                el.querySelector("[data-edit-plan-id]")?.addEventListener("click",()=>this.openForm(plan));
+                el.querySelector("[data-delete-plan-id]")?.addEventListener("click",()=>this.deletePlan(plan.id));
+                el.querySelector("[data-pay-plan-id]")?.addEventListener("click",()=>this.registerPayment(plan.id));
+                el.querySelector("[data-undo-plan-id]")?.addEventListener("click",()=>this.undoPayment(plan.id));
+                content.appendChild(el);
+            });
+            this.elements.list.appendChild(section);
+        });
     },
 
     registerPayment(planId) {

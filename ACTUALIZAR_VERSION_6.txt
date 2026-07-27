@@ -1,0 +1,5 @@
+FINANZAS FAMILIAR PWA — VERSIÓN 6.0
+
+Incluye balance mensual, gastos fijos con inicio/fin, planes agrupados por tarjeta, cálculo automático del primer pago y corrección completa de temas.
+
+Copia todos los archivos sobre tu repositorio actual sin borrar la carpeta .git.

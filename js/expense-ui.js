@@ -92,6 +92,12 @@ const ExpenseUI = {
                     "expense-type"
                 ),
 
+            fixedOptions: document.getElementById("fixed-expense-options"),
+            startDate: document.getElementById("expense-start-date"),
+            hasEndDate: document.getElementById("expense-has-end-date"),
+            endDateGroup: document.getElementById("expense-end-date-group"),
+            endDate: document.getElementById("expense-end-date"),
+
             message:
                 document.getElementById(
                     "expense-form-message"
@@ -156,6 +162,9 @@ const ExpenseUI = {
                 }
             );
 
+        this.elements.type?.addEventListener("change", () => this.updateFixedOptions());
+        this.elements.hasEndDate?.addEventListener("change", () => this.updateFixedOptions());
+
         this.elements.list
             ?.addEventListener(
                 "click",
@@ -216,6 +225,8 @@ const ExpenseUI = {
 
         this.hideMessage();
         this.setDefaultDate();
+        if (this.elements.startDate) this.elements.startDate.value = this.elements.date.value;
+        this.updateFixedOptions();
 
         this.elements.modal.hidden = false;
 
@@ -266,6 +277,10 @@ const ExpenseUI = {
 
         this.elements.type.value =
             expense.type || "Variable";
+        if (this.elements.startDate) this.elements.startDate.value = expense.startDate || expense.date || "";
+        if (this.elements.hasEndDate) this.elements.hasEndDate.checked = Boolean(expense.hasEndDate);
+        if (this.elements.endDate) this.elements.endDate.value = expense.endDate || "";
+        this.updateFixedOptions();
 
         this.elements.formTitle.textContent =
             "Editar gasto";
@@ -290,6 +305,14 @@ const ExpenseUI = {
             100
         );
 
+    },
+
+    updateFixedOptions() {
+        const isFixed = this.elements.type?.value === "Fijo";
+        if (this.elements.fixedOptions) this.elements.fixedOptions.hidden = !isFixed;
+        if (this.elements.endDateGroup) this.elements.endDateGroup.hidden = !isFixed || !this.elements.hasEndDate?.checked;
+        if (this.elements.startDate) this.elements.startDate.required = isFixed;
+        if (this.elements.endDate) this.elements.endDate.required = isFixed && Boolean(this.elements.hasEndDate?.checked);
     },
 
     closeForm() {
@@ -334,7 +357,11 @@ const ExpenseUI = {
                 this.elements.category.value,
 
             type:
-                this.elements.type.value
+                this.elements.type.value,
+
+            startDate: this.elements.startDate?.value || this.elements.date.value,
+            hasEndDate: Boolean(this.elements.hasEndDate?.checked),
+            endDate: this.elements.endDate?.value || ""
 
         };
 
@@ -356,7 +383,8 @@ const ExpenseUI = {
                     values.amount,
                     values.date,
                     values.category,
-                    values.type
+                    values.type,
+                    values
                 );
 
         }

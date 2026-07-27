@@ -430,12 +430,13 @@ const ProfessionalUI = {
     },
 
     applyTheme(value) {
-
-        document.documentElement
-            .dataset
-            .financeTheme =
-                value;
-
+        const allowed = ["light", "dark", "system"];
+        const selected = allowed.includes(value) ? value : "system";
+        document.documentElement.dataset.financeTheme = selected;
+        document.documentElement.style.colorScheme = selected === "system" ? "light dark" : selected;
+        const meta = document.querySelector('meta[name="theme-color"]');
+        const dark = selected === "dark" || (selected === "system" && window.matchMedia("(prefers-color-scheme: dark)").matches);
+        if (meta) meta.setAttribute("content", dark ? "#0b0b0d" : "#f2f2f7");
     },
 
     updateSelectedOptions() {
